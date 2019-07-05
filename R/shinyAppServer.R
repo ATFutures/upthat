@@ -7,8 +7,6 @@
 # Define server logic required to draw a histogram
 shinyAppServer <- function(input, output, session) {
   
-  devtools::install_github("atfutures-labs/upthat")
-  
   library(leaflet)
   
   net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson")
