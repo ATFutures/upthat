@@ -6,6 +6,7 @@
 # remotes::install_cran("leaflet")
 library(shiny)
 library(leaflet)
+devtools::install_github("atfutures-labs/upthat")
 
 net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson")
 
