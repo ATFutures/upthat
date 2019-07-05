@@ -4,7 +4,7 @@
 \alias{shinyAppServer}
 \title{Shiny app server function}
 \usage{
-shinyAppServer(input, output)
+shinyAppServer(input, output, session)
 }
 \arguments{
 \item{input}{provided by shiny}

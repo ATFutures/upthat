@@ -5,23 +5,15 @@
 
 # create the shiny application user interface
 shinyAppUI <- fluidPage(
-
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
-
-  # Sidebar with a slider input for number of bins
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
-                  min = 1,
-                  max = 50,
-                  value = 30)
-    ),
-
-    # Show a plot of the generated distribution
-    mainPanel(
-      plotOutput("distPlot")
-    )
-  )
+  shiny::titlePanel("Welcome to the ATT (name and contents are work in progress)"),
+  column(width = 3, 
+         selectInput("mode", label = "Mode of transport",  choices = c("Walk", "Cycle")),
+         sliderInput("rem", "Re-purposing of car parking spaces (% spaces removed)", min = 0, max = 100, value = 5),
+         sliderInput("obs", "Investment (US $ millions):", min = 0, max = 50, value = 0.5, step = 0.1)
+  ),
+  column(width = 9, 
+         leafletOutput("mymap")
+  ),
+  p(),
+  actionButton("recalc", "Recalculate scenario")
 )
