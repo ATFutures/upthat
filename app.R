@@ -7,6 +7,7 @@
 library(shiny)
 library(leaflet)
 
+net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson")
 r_colors <- rgb(t(col2rgb(colors()) / 255))
 names(r_colors) <- colors()
 
