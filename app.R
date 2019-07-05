@@ -12,8 +12,8 @@ net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net
 ui <- fluidPage(
   shiny::titlePanel("Welcome to the ATT (name and contents are work in progress)"),
   column(width = 3, 
-         sliderInput("obs", "Investment (US $ millions):",
-                     min = 0, max = 50, value = 0.5, step = 0.1)
+         selectInput(inputId = "mode", label = "Mode of transport",  choices = c("Walk", "Cycle")),
+         sliderInput("obs", "Investment (US $ millions):", min = 0, max = 50, value = 0.5, step = 0.1)
          ),
   leafletOutput("mymap"),
   p(),
