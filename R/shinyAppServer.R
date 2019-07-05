@@ -17,9 +17,7 @@ shinyAppServer <- function(input, output, session) {
   
   output$mymap <- renderLeaflet({
     leaflet() %>%
-      addProviderTiles(providers$Stamen.TonerLite,
-                       options = providerTileOptions(noWrap = TRUE)
-      ) %>%
+      addProviderTiles(providers$OpenStreetMap.BlackAndWhite, options = providerTileOptions(noWrap = TRUE)) %>%
       addPolylines(data = net)
   })
 }
