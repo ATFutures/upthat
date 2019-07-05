@@ -11,6 +11,7 @@ r_colors <- rgb(t(col2rgb(colors()) / 255))
 names(r_colors) <- colors()
 
 ui <- fluidPage(
+  shiny::titlePanel("Welcome to the ATT (name and contents are work in progress)"),
   leafletOutput("mymap"),
   p(),
   actionButton("recalc", "New points")
