@@ -5,7 +5,7 @@
 
 # create the shiny application user interface
 shinyAppUI <- fluidPage(
-  shiny::titlePanel("Welcome to upthat, the Urban Planning and Transport Health Assessment Tool"),
+  shiny::titlePanel("Welcome to the Urban Planning and Transport Health Assessment Tool (upthat)"),
   column(width = 3, 
          selectInput("mode", label = "Mode of transport",  choices = c("Walk", "Cycle")),
          sliderInput("rem", "Re-purposing of car parking spaces (% spaces removed)", min = 0, max = 100, value = 5),
