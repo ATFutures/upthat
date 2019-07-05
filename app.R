@@ -16,9 +16,11 @@ ui <- fluidPage(
          sliderInput("rem", "Re-purposing of car parking spaces", min = 0, max = 100, value = 5),
          sliderInput("obs", "Investment (US $ millions):", min = 0, max = 50, value = 0.5, step = 0.1)
          ),
-  leafletOutput("mymap"),
+  column(width = 9, 
+         leafletOutput("mymap")
+  ),
   p(),
-  actionButton("recalc", "New points")
+  actionButton("recalc", "Recalculate scenario")
 )
 
 server <- function(input, output, session) {
