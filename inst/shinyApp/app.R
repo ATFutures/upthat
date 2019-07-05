@@ -1,1 +1,1 @@
-shinyAppDemo::launchApp()
+upthat::runUpthat()
