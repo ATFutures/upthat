@@ -12,5 +12,7 @@ LazyData: true
 Imports: 
     shiny,
     leaflet,
-    sf
+    sf,
+    tmap
+Remotes: mtennekes/tmap
 RoxygenNote: 6.1.1
