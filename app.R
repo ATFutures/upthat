@@ -1,8 +1,10 @@
-library(shiny)
-library(leaflet)
-library(upthat)
+upthat::runUpthat()
 
-source("https://github.com/atfutures-labs/upthat/raw/master/R/ui.R")
-source("https://github.com/atfutures-labs/upthat/raw/master/R/server.R")
-
-shiny::shinyApp(ui = shinyAppUI, server = shinyAppServer)
+# library(shiny)
+# library(leaflet)
+# library(upthat)
+#
+# source("https://github.com/atfutures-labs/upthat/raw/master/R/ui.R")
+# source("https://github.com/atfutures-labs/upthat/raw/master/R/server.R")
+#
+# shiny::shinyApp(ui = shinyAppUI, server = shinyAppServer)
