@@ -9,13 +9,10 @@
 # Define server logic required to draw a histogram
 shinyAppServer <- function(input, output, session) {
 
-  library(tmap)
-
-
   # if(!file.exists("net.geojson")) download.file("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson", "net.geojson")
   # net = sf::read_sf("net.geojson")
-  net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson")
-  # net = readRDS(system.file("net.Rds", package = "upthat"))
+  # net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson")
+  net = readRDS(system.file("net.Rds", package = "upthat"))
   n = names(net)
   n_flow = n[grepl(pattern = "flow_", x = n)]
 
@@ -25,12 +22,14 @@ shinyAppServer <- function(input, output, session) {
   #   ) %>%
   #   addLegend(pal = qpal, values = ~gdp_md_est, opacity = 1)
 
-  repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
+  # repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
   output$app_info = renderText(paste(
-    'Warning: this is not a stable version. Please do not distribute. Version',
-    a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
-    'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
-    a('WHO', href = "https://www.who.int/", target = "_blank")))
+    'Warning: this is not a stable version. Please do not distribute. Version'
+    # ,
+    # a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
+    # 'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
+    # a('WHO', href = "https://www.who.int/", target = "_blank")
+    ))
 
   mytmap <- tmap::renderTmap({
     qtm(net)

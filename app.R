@@ -1,5 +1,6 @@
-upthat::runUpthat()
-
+library(upthat)
+shinyApp(ui = shinyAppUI, server = shinyAppServer)
+# upthat::runUpthat()
 # library(shiny)
 # library(leaflet)
 # library(upthat)
