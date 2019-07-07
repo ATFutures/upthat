@@ -24,27 +24,29 @@ shinyAppServer <- function(input, output, session) {
   #   ) %>%
   #   addLegend(pal = qpal, values = ~gdp_md_est, opacity = 1)
 
-  output$mytmap <- tmap::renderTmap({
+  repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
+  output$app_info = renderText(paste('Version', a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
+                          'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
+                          a('WHO', href = "https://www.who.int/", target = "_blank")))
+
+  mytmap <- tmap::renderTmap({
     qtm(net)
   })
 
-  output$mymap <- renderLeaflet({
+  mymap <- renderLeaflet({
     n_to_show = n_flow[grepl(pattern = input$mode, n_flow, ignore.case = TRUE)]
     qpal = colorBin("RdYlBu", net[[n_to_show]], n = 5)
-
     leaflet() %>%
       addProviderTiles(leaflet::providers$OpenStreetMap.BlackAndWhite, options = providerTileOptions(noWrap = TRUE)) %>%
       addPolylines(data = net, weight = round(net[[n_to_show]] / mean(net[[n_to_show]]) * 5), color = ~qpal(net[[n_to_show]])) %>%
       addLegend(pal = qpal, values = net[[n_to_show]], opacity = 1)
+  })
 
-    # ## Map version info - text in bottom left
-    # repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
-    # output$cite_html <- renderUI({
-    #   HTML(paste('Version', a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
-    #              'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
-    #              a('WHO', href = "https://www.who.int/", target = "_blank")
-    #   ))
-    # })
-  #
+  observe({
+    if(input$pkg == "tmap") {
+      output$mymap = mytmap
+    } else {
+      output$mymap = mymap
+    }
   })
 }
