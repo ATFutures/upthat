@@ -25,9 +25,11 @@ shinyAppServer <- function(input, output, session) {
   #   addLegend(pal = qpal, values = ~gdp_md_est, opacity = 1)
 
   repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
-  output$app_info = renderText(paste('Version', a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
-                          'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
-                          a('WHO', href = "https://www.who.int/", target = "_blank")))
+  output$app_info = renderText(paste(
+    'Warning: this is not a stable version. Please do not distribute. Version',
+    a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
+    'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
+    a('WHO', href = "https://www.who.int/", target = "_blank")))
 
   mytmap <- tmap::renderTmap({
     qtm(net)
