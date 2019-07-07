@@ -22,20 +22,20 @@ shinyAppServer <- function(input, output, session) {
   #   ) %>%
   #   addLegend(pal = qpal, values = ~gdp_md_est, opacity = 1)
 
-  # repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
+  repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
   output$app_info = renderText(paste(
     'Warning: this is not a stable version. Please do not distribute. Version'
-    # ,
-    # a(repo_sha, href = paste0("https://github.com/npct/pct-shiny/tree/", repo_sha), target = '_blank'),
-    # 'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
-    # a('WHO', href = "https://www.who.int/", target = "_blank")
+    ,
+    a(repo_sha, href = paste0("https://github.com/atfutures/upthat/tree/", repo_sha), target = '_blank'),
+    'released under the', a('GNU Affero GPL', href = "https://www.gnu.org/licenses/agpl-3.0.en.html", target = '_blank'), 'and funded by the',
+    a('WHO', href = "https://www.who.int/", target = "_blank")
     ))
 
-  mytmap <- tmap::renderTmap({
-    qtm(net)
-  })
+  # mytmap <- tmap::renderTmap({
+  #   qtm(net)
+  # })
 
-  mymap <- renderLeaflet({
+  output$mymap <- renderLeaflet({
     n_to_show = n_flow[grepl(pattern = input$mode, n_flow, ignore.case = TRUE)]
     qpal = colorBin("RdYlBu", net[[n_to_show]], n = 5)
     leaflet() %>%
@@ -44,11 +44,11 @@ shinyAppServer <- function(input, output, session) {
       addLegend(pal = qpal, values = net[[n_to_show]], opacity = 1)
   })
 
-  observe({
-    if(input$pkg == "tmap") {
-      output$mymap = mytmap
-    } else {
-      output$mymap = mymap
-    }
-  })
+  # observe({
+  #   if(input$pkg == "tmap") {
+  #     output$mymap = mytmap
+  #   } else {
+  #     output$mymap = mymap
+  #   }
+  # })
 }
