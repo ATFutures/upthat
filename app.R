@@ -1,5 +1,6 @@
 library(shiny)
 library(leaflet)
+library(tmap)
 library(upthat)
 
 source("https://github.com/atfutures-labs/upthat/raw/master/R/ui.R")
