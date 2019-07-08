@@ -12,12 +12,15 @@ shinyAppServer <- function(input, output, session) {
   # if(!file.exists("net.geojson")) download.file("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson", "net.geojson")
   # net = sf::read_sf("net.geojson")
   # net = sf::read_sf("https://github.com/ATFutures/who3/releases/download/0.0.1/net.geojson")
-  #net = readRDS(system.file("net.Rds", package = "upthat"))
-  u = paste0 ("https://github.com/ATFutures/who-data/releases/download/",
-               "v0.0.5-moveability/kathmandu-moveability-sf.Rds")
-  fname = "kathmandu-moveability.Rds"
-  if (!file.exists (fname)) download.file (u, fname)
-  net = readRDS (fname)
+  # u = paste0 ("https://github.com/ATFutures/who-data/releases/download/",
+  #             "v0.0.5-moveability/kathmandu-moveability-sf.Rds")
+  # fname = "kathmandu-moveability.Rds"
+  # if (!file.exists (fname)) download.file (u, fname)
+  # net = readRDS (fname)
+  # net = net[net$flow > 1e8, ]
+  # saveRDS(net, "inst/net.Rds")
+  net = readRDS(system.file("net.Rds", package = "upthat"))
+  
   net$flow <- 20 * net$flow / max (net$flow)
   names(net)[which(names(net) == "flow")] <- "flow_walk"
   net$flow_cycle <- net$flow_walk
