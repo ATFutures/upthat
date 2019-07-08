@@ -1,1 +1,3 @@
-This is a prototype shiny app for showing walking and cycling potential on an interactive map.
+[![](https://img.shields.io/docker/automated/robinlovelace/geocompr.svg)](https://cloud.docker.com/repository/docker/robinlovelace/upthat/builds)
+
+This is a prototype Urban Planning and Transport Health Assessment Tool (upthat)
