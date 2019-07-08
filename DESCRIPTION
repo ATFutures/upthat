@@ -13,6 +13,7 @@ Imports:
     shiny,
     leaflet,
     sf,
-    tmap
+    tmap,
+    mapdeck
 Remotes: mtennekes/tmap
 RoxygenNote: 6.1.1
