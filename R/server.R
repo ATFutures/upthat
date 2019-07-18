@@ -20,7 +20,7 @@ shinyAppServer <- function(input, output, session) {
   # net = net[net$flow > 1e8, ]
   # saveRDS(net, "inst/net.Rds")
   net = readRDS(system.file("net.Rds", package = "upthat"))
-  
+
   net$flow <- 20 * net$flow / max (net$flow)
   names(net)[which(names(net) == "flow")] <- "flow_walk"
   net$flow_cycle <- net$flow_walk
@@ -60,7 +60,7 @@ shinyAppServer <- function(input, output, session) {
     #               weight = round(net[[n_to_show]] / max(net[[n_to_show]]) * 10),
     #               color = ~qpal(net[[n_to_show]])) %>%
     #  addLegend(pal = qpal, values = net[[n_to_show]], opacity = 1)
-    mapdeck::mapdeck (style = "mapbox://styles/mapbox/light-v10") %>%
+    mapdeck::mapdeck (style = "mapbox://styles/mapbox/light-v10", token = Sys.getenv("MAPDECK")) %>%
         mapdeck::add_path (net,
                            stroke_colour = n_to_show,
                            stroke_width = n_to_show,
