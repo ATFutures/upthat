@@ -26,7 +26,7 @@ shinyAppServer = function(input, output, session) {
   )
 
   net = readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
-  rds_files_available = list.files(path = "../inst", pattern = ".Rds", full.names = TRUE)
+  rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
   output$mymap = mapdeck::renderMapdeck({
     mapdeck::mapdeck(token = Sys.getenv("MAPDECK"), style = "mapbox://styles/mapbox/light-v10")
