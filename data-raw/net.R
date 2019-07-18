@@ -8,9 +8,9 @@ names(net)
 head(net)
 
 # Parameters
-city_name = "Kathmandu, nepal"
-city_codename = "kathmandu"
-size_net = 1000
+city_name = "Accra"
+city_codename = "accra"
+size_net = 2000
 osm_variables_to_keep = c("osm_id", "name", "highway", "access", "bicycle", "oneway.bicycle", "cycleway", "foot", "maxspeed", "oneway")
 schema_components = c("mode", "scenario", "purpose") # could add frequency/time of day
 modes = c("cycle", "walk")
@@ -57,7 +57,7 @@ for(i in flow_variables) {
   net[[i]] = runif(nrow(net), min = 0, max = max(f) / 3)
 }
 plot(net[grepl(pattern = "_all", x = names(net))])
-saveRDS(net, paste0("inst/net-", city_codename, ".Rds"))
+saveRDS(net, paste0("net-", city_codename, ".Rds"))
 
 # sf::write_sf(net, "net.geojson")
 # piggyback::pb_upload("net.geojson")
