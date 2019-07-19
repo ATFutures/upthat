@@ -10,6 +10,8 @@ shinyAppServer(input, output, session)
 \item{input}{provided by shiny}
 
 \item{output}{provided by shiny}
+
+\item{session}{The shiny session}
 }
 \description{
 Shiny app server function

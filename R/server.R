@@ -2,6 +2,7 @@
 #'
 #' @param input provided by shiny
 #' @param output provided by shiny
+#' @param session The shiny session
 
 #' @import leaflet
 #' @import tmap
