@@ -30,7 +30,7 @@ shinyAppServer = function(input, output, session) {
   rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
   output$mymap = mapdeck::renderMapdeck({
-    mapdeck::mapdeck(token = Sys.getenv("MAPDECK"), style = "mapbox://styles/mapbox/light-v10")
+    mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
   })
 
 
