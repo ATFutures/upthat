@@ -33,6 +33,7 @@ shinyAppServer = function(input, output, session) {
   )
 
   if ("net" %in% ls ()) rm (net)
+  net = readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
   rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
   output$mymap = mapdeck::renderMapdeck({
