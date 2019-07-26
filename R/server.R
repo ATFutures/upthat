@@ -49,11 +49,12 @@ shinyAppServer = function(input, output, session) {
       message(length(matching_file),  " files found")
     }
 
+    net$width <- 20 * net$flow / max (net$flow, na.rm = TRUE)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
-      mapdeck::add_path(palette = "cividis", # see colourvalues::color_palettes()
+      mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
                         net,
-                        stroke_colour = "walk_cardiet_all",
-                        stroke_width = net$walk_cardiet_all / mean(net$walk_cardiet_all) * 10,
+                        stroke_colour = "flow",
+                        stroke_width = "width",
                         legend = TRUE
       )
   })
