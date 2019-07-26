@@ -32,6 +32,7 @@ shinyAppServer = function(input, output, session) {
     )
   )
 
+  if ("net" %in% ls ()) rm (net)
   net = readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
   rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
@@ -44,6 +45,7 @@ shinyAppServer = function(input, output, session) {
 
     matching_file = rds_files_available[grepl(pattern = input$city, x = rds_files_available, ignore.case = TRUE)]
     if (length(matching_file) == 1) {
+      if ("net" %in% ls ()) rm (net)
       net = readRDS(matching_file)
     } else {
       message(length(matching_file),  " files found")
@@ -51,12 +53,13 @@ shinyAppServer = function(input, output, session) {
 
     net$width <- 20 * net$flow / max (net$flow, na.rm = TRUE)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
+      mapdeck::clear_path(layer_id = "mylayer") %>%
       mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
                         net,
                         stroke_colour = "flow",
                         stroke_width = "width",
-                        legend = TRUE
-      )
+                        legend = TRUE,
+                        layer_id = "mylayer")
   })
 
 }
