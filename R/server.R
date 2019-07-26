@@ -9,6 +9,12 @@
 #' @export
 # Define server logic required to draw a histogram
 shinyAppServer = function(input, output, session) {
+
+  if(is.na(mapdeck::mapdeck_tokens()[[1]][[1]])) {
+    message("No mapdeck token found on system. Trying environment variable MAPDECK")
+    mapdeck::set_token(token = Sys.getenv("MAPDECK"))
+  }
+
   repo_sha = system("git rev-parse --short HEAD", intern = TRUE)
   output$app_info = renderText(
     paste(
