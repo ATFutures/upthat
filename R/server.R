@@ -33,7 +33,6 @@ shinyAppServer = function(input, output, session) {
   )
 
   if ("net" %in% ls ()) rm (net)
-  net = readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
   rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
   output$mymap = mapdeck::renderMapdeck({
@@ -51,7 +50,7 @@ shinyAppServer = function(input, output, session) {
       message(length(matching_file),  " files found")
     }
 
-    net$width <- 20 * net$flow / max (net$flow, na.rm = TRUE)
+    net$width = 20 * net$flow / max (net$flow, na.rm = TRUE)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
       mapdeck::clear_path(layer_id = "mylayer") %>%
       mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
@@ -60,6 +59,6 @@ shinyAppServer = function(input, output, session) {
                         stroke_width = "width",
                         legend = TRUE,
                         layer_id = "mylayer")
+    rm (net)
   })
-
 }
