@@ -53,13 +53,11 @@ shinyAppServer = function(input, output, session) {
 
     net$width = 20 * net$flow / max (net$flow, na.rm = TRUE)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
-      mapdeck::clear_path(layer_id = "mylayer") %>%
       mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
                         net,
                         stroke_colour = "flow",
                         stroke_width = "width",
                         legend = TRUE,
                         layer_id = "mylayer")
-    rm (net)
   })
 }
