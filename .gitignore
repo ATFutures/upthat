@@ -4,3 +4,9 @@
 .Ruserdata
 .Renviron
 net-*.Rds
+# vim files
+.*.un~
+.*.swp
+# compiled object files
+*.o
+*.so
