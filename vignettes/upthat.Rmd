@@ -38,7 +38,7 @@ knitr::opts_chunk$set(echo = FALSE)
 # ref_df = as.data.frame(refs)
 # # View(ref_df)
 # RefManageR::WriteBib(refs, "references.bib")
-citr::tidy_bib_file(rmd_file = "scenarios/README.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "scenarios/references.bib")
+citr::tidy_bib_file(rmd_file = "vignettes/upthat.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "vignettes/references.bib")
 ```
 
 # Introduction
@@ -105,15 +105,15 @@ This implication is that **if no policies have been implemented to promote alter
 
 ```{r, fig.show='hold', out.width="100%"}
 # see code/mode-split-cities.R
-knitr::include_graphics("https://github.com/ATFutures/who3/blob/master/figures/city-mode-split-wiki-cars.png")
-knitr::include_graphics("https://github.com/ATFutures/who3/blob/master/figures/city-mode-split-wiki.png")
+knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki-cars.png")
+knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png")
 ```
 
 The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking.
 **This strongly suggests that a reliable way to encourage walking in cities is through investment in public transport.**
 
 ```{r, out.width="50%"}
-knitr::include_graphics("https://github.com/ATFutures/who3/blob/master/figures/city-mode-cor.png")
+knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png")
 ```
 
 This city level data allows models of mode split to be developed, assuming there are sufficient explanatory variables defining the transport system.
@@ -159,7 +159,7 @@ res = predict(m2, new_data)
 ```
 
 ```{r, out.width="50%", fig.show='hold'}
-knitr::include_graphics(c("https://github.com/ATFutures/who3/blob/master/figures/mode-share-prediction.png", "https://github.com/ATFutures/who3/blob/master/figures/mode-share-prediction-metro.png"))
+knitr::include_graphics(c("https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction.png", "https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-metro.png"))
 ```
 
 The result suggest that beyond a certain size, increasingly large city populations are associated with a lower proportion of trips made by driving in the sample of cities used.
@@ -175,8 +175,8 @@ Scenario development accounting for the transport systems in Accra and Kathmandu
 An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.
 
 ```{r modes-ghana, out.width="50%", fig.show='hold'}
-knitr::include_graphics("https://github.com/ATFutures/who3/blob/master/figures/modes-ghana-work.png")
-knitr::include_graphics("https://github.com/ATFutures/who3/blob/master/figures/modes-ghana-work-simple.png")
+knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png")
+knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png")
 ```
 
 # Running upthat locally
