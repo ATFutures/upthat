@@ -2,7 +2,7 @@
 title: "Upthat scenarios"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Upthat user manual}
+  %\VignetteIndexEntry{Upthat scenarios}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: references.bib
