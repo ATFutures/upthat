@@ -158,9 +158,9 @@
 </tbody>
 </table>
 <p>The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adalaide, Australia). A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking. This view is shown on the right of the figure, which shows walking mode shares in the sample of cities ranging from only 3% to more than 1/3rd (in Madrid, Spain and Vilnius, Lithuania). It is interesting to note that while there is a roughly even distribution of mode shares by car, other modes have more skewed distributions. This could reflect the diversity of policies used to promote walking, cycling and public transport and the fact that cars tend to be the default. This implication is that <strong>if no policies have been implemented to promote alternatives, cars dominate</strong>.</p>
-<p><img src="https://github.com/ATFutures/who3/blob/master/figures/city-mode-split-wiki-cars.png" width="100%"><img src="https://github.com/ATFutures/who3/blob/master/figures/city-mode-split-wiki.png" width="100%"></p>
+<p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki-cars.png" width="100%"><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png" width="100%"></p>
 <p>The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking. <strong>This strongly suggests that a reliable way to encourage walking in cities is through investment in public transport.</strong></p>
-<p><img src="https://github.com/ATFutures/who3/blob/master/figures/city-mode-cor.png" width="50%"></p>
+<p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png" width="50%"></p>
 <p>This city level data allows models of mode split to be developed, assuming there are sufficient explanatory variables defining the transport system.</p>
 </div>
 <div id="transport-system-data" class="section level2">
@@ -187,7 +187,7 @@
 <a href="#methods-of-modelling-mode-shift-at-the-city-level" class="anchor"></a>Methods of modelling mode shift at the city level</h1>
 <p>The datasets presented in the previous section are examples of proportional outcomes, where we are interested in the mode split of all travel in a city. These types of data are common in ecological modelling <span class="citation">[@douma_analysing_2019]</span>, which provided a basis for investigating the question of citywide scenarios of mode shift in which modes are analogous to species. Dirichlet regression is a recently developed technique for modelling proportions based on a range of dependent variables <span class="citation">[@maier_dirichletreg_2014]</span>.</p>
 <p>Building on this work, support for Dirichlet regression was added to the R package <code>brms</code> <span class="citation">[@burkner_brms_2017]</span>, which implements a Bayesian modelling framework based on the stan C++ library, in 2018. The advantage of <code>brms</code> is that it estimates uncertainty, vital for effective ‘no-regrets’ policy making. A basic example of the outputs of a Dirichlet regression model run are shown in the figure below, which represents the result of a model run for a subset of 28 cities for which we have access to population (other explanatory variables included provision of metro and bikeshare schemes).</p>
-<p><img src="https://github.com/ATFutures/who3/blob/master/figures/mode-share-prediction.png" width="50%"><img src="https://github.com/ATFutures/who3/blob/master/figures/mode-share-prediction-metro.png" width="50%"></p>
+<p><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-metro.png" width="50%"></p>
 <p>The result suggest that beyond a certain size, increasingly large city populations are associated with a lower proportion of trips made by driving in the sample of cities used. More explanatory variables can be added using this framework, including categorical variables such as <code>has_metro</code>, the results of which (that increase the mode share by public transport and notably walking in the results, which also show confidence intervals) are shown. Of course, the quality of the prediction relies on good input data predicting mode shift and relies on the assumption that cities are in equilibrium states. <strong>This strengthens the need for open data on mode shift at city, OD and local levels over time following a range of interventions.</strong></p>
 </div>
 <div id="estimates-of-rates-of-shift-towards-walking-and-cycling-down-to-route-network-levels" class="section level1">
@@ -198,7 +198,7 @@
 <h1 class="hasAnchor">
 <a href="#simulating-the-impacts-citywide" class="anchor"></a>Simulating the impacts citywide</h1>
 <p>Scenario development accounting for the transport systems in Accra and Kathmandu, as part of UHI project activities, must be based on current transport data. An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.</p>
-<p><img src="https://github.com/ATFutures/who3/blob/master/figures/modes-ghana-work.png" width="50%"><img src="https://github.com/ATFutures/who3/blob/master/figures/modes-ghana-work-simple.png" width="50%"></p>
+<p><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png" width="50%"></p>
 </div>
 <div id="running-upthat-locally" class="section level1">
 <h1 class="hasAnchor">
