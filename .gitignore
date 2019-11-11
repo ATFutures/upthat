@@ -10,3 +10,4 @@ net-*.Rds
 # compiled object files
 *.o
 *.so
+docs/
