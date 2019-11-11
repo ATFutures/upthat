@@ -26,7 +26,7 @@ bibliography:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(tidyverse)
+# library(tidyverse)
 ```
 
 ```{r refs, eval=FALSE}
@@ -72,10 +72,10 @@ Mode split is one of the fundamental pieces of information that is known for mos
 For context, it's useful to take a step back and consider the range of modal splits observed in a sample of cities worldwide.
 The figure below shows the diversity in mode splits based on (primarily wealthy) cities, based on data of the type shown in the table below from [Wikipedia](https://en.wikipedia.org/wiki/Modal_share).
 
-```{r}
+```{r, eval=FALSE}
 dc = readRDS(url("https://github.com/ATFutures/who3/raw/master/global-data/city-mode-split-wiki.Rds"))
 # dc = readRDS("global-data/city-mode-split-wiki.Rds")
-dc %>% 
+k = dc %>% 
   filter(
     walking == max(walking) |
     cycling == max(cycling) |
@@ -85,6 +85,15 @@ dc %>%
     ) %>% 
   knitr::kable()
 ```
+
+
+|City       | walking| cycling| pt| car| other| year|
+|:----------|-------:|-------:|--:|---:|-----:|----:|
+|Detroit    |       1|       0|  2|  92|     5| 2016|
+|Amsterdam  |       4|      40| 29|  27|     0| 2014|
+|Bratislava |       4|       0| 70|  26|     0| 2004|
+|Osaka      |      27|      21| 34|  18|     0| 2000|
+|Helsinki   |      37|      10| 30|  22|     1| 2016|
 
 The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adalaide, Australia).
 A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking.
