@@ -57,6 +57,7 @@ shinyAppServer = function(input, output, session) {
                         net,
                         stroke_colour = "flow",
                         stroke_width = "width",
+                        stroke_opacity = "flow",
                         legend = TRUE,
                         layer_id = "mylayer")
   })
