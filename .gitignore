@@ -11,3 +11,4 @@ net-*.Rds
 *.o
 *.so
 docs/
+inst/doc

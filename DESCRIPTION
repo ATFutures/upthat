@@ -19,3 +19,7 @@ Imports:
     mapdeck (>= 0.2.1)
 Remotes: mtennekes/tmap
 RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
