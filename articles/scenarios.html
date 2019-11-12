@@ -113,7 +113,17 @@
 <div id="mode-split-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#mode-split-data" class="anchor"></a>Mode split data</h2>
-<p>Mode split is one of the fundamental pieces of information that is known for most cities. For context, it’s useful to take a step back and consider the range of modal splits observed in a sample of cities worldwide. The figure below shows the diversity in mode splits based on (primarily wealthy) cities, based on data of the type shown in the table below from <a href="https://en.wikipedia.org/wiki/Modal_share">Wikipedia</a>.</p>
+<p>Mode split is one of the fundamental pieces of information that is known for most cities. For context, it’s useful to take a step back and consider the range of modal splits observed in a sample of cities worldwide. Many sources of mode share data are available, including the following (none of which were used due lack of access to the underlying data or other issues):</p>
+<ul>
+<li>
+<a href="https://transportgeography.org/?page_id=5055">Transport Geography website</a>, which provides an image of mode split</li>
+<li>
+<a href="http://www.epomm.eu/tems/">The TEMS mode split tool</a>, which provides a map but not the underlying data</li>
+<li><a href="https://www.thetransportpolitic.com/databook/travel-mode-shares-in-the-u-s/">Various country-specific datasets</a></li>
+</ul>
+<p>A problem with many datasets on mode split is that they ignore or oversimplify active transport. Examples of this are the <a href="https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT">OECD</a> passenger transport dataset and the European Union’s Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:</p>
+<p><img src="https://ec.europa.eu/eurostat/statistics-explained/images/a/a8/Modal_split_of_inland_passenger_transport%2C_2016_%28%25_share_in_passenger-kilometres%29.png" width="50%"></p>
+<p><strong>This suggests the need for an open, international dataset on modal splits in major cities over time</strong>. To overcome these issues we searched for crowd-sourced data on mode split. The figure below shows the diversity in mode splits based on 108 (primarily wealthy) cities, based on data of the type shown in the table below from <a href="https://en.wikipedia.org/wiki/Modal_share">Wikipedia</a>.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">City</th>
@@ -173,7 +183,7 @@
 </tbody>
 </table>
 <p>The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adalaide, Australia). A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking. This view is shown on the right of the figure, which shows walking mode shares in the sample of cities ranging from only 3% to more than 1/3rd (in Madrid, Spain and Vilnius, Lithuania). It is interesting to note that while there is a roughly even distribution of mode shares by car, other modes have more skewed distributions. This could reflect the diversity of policies used to promote walking, cycling and public transport and the fact that cars tend to be the default. This implication is that <strong>if no policies have been implemented to promote alternatives, cars dominate</strong>.</p>
-<p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki-cars.png" width="100%"><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png" width="100%"></p>
+<p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png" width="100%"></p>
 <p>The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking. <strong>This strongly suggests that a reliable way to encourage walking in cities is through investment in public transport.</strong></p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png" width="50%"></p>
 <p>This city level data allows models of mode split to be developed, assuming there are sufficient explanatory variables defining the transport system.</p>
@@ -181,7 +191,15 @@
 <div id="transport-system-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#transport-system-data" class="anchor"></a>Transport system data</h2>
-<p>Transport systems are complex, composed of hundreds of interrelated elements. For modelling purposes, it makes sense to condense available datasets down into a few key parameters per city, zone or origin-destination pair. The process of identifying and quantifying transport system variables should be be an open-ended and adaptable process that is able to respond when the input data changes (e.g. due to changes in the transport system or improved data availability/collection).</p>
+<p>Transport systems are complex, composed of hundreds of interrelated elements. For modelling purposes, it makes sense to condense available datasets down into a few key parameters per city, zone or origin-destination pair. The process of identifying and quantifying transport system variables should be be an open-ended and adaptable process that is able to respond when the input data changes (e.g. due to changes in the transport system or improved data availability/collection). The <a href="https://data.london.gov.uk/dataset/global-city-data">Global City Data</a> dataset provides several transport-related variables on major cities, but the data are highly skewed towards wealthy cities, and are thus not suitable for developing nations. Instead, data from the <a href="https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/">Natural Earth</a> open data repository was used for basic city statistics, including (the ones used in this project):</p>
+<ul>
+<li>Population</li>
+<li>Area (km<sup>2</sup>)</li>
+<li>Elevation</li>
+<li>Country</li>
+</ul>
+<p>The city data, with these explanatory variables added, are shown in the figure below</p>
+<p><img src="https://github.com/ATFutures/who3/raw/master/figures/cities-area-population.png" width="90%"></p>
 <p>This section therefore provides a framework for including key transport system variables, based on the assumption that additional/modified variables will be used in future iterations of the model. Key variables that are readily available for most cities include:</p>
 <ul>
 <li>Percentage of the transport network that is dedicated to motor traffic (an alternative or suplementary measure could be the percentage of the city’s surface area dedicated to motor traffic)</li>
@@ -214,11 +232,6 @@
 <a href="#simulating-the-impacts-citywide" class="anchor"></a>Simulating the impacts citywide</h1>
 <p>Scenario development accounting for the transport systems in Accra and Kathmandu, as part of UHI project activities, must be based on current transport data. An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.</p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png" width="50%"></p>
-</div>
-<div id="running-upthat-locally" class="section level1">
-<h1 class="hasAnchor">
-<a href="#running-upthat-locally" class="anchor"></a>Running upthat locally</h1>
-<p>Upthat is a fully open and reproducible web application. You can reproduce it on your computer on a local installation of R as follows:</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -261,7 +274,6 @@
       <li><a href="#methods-of-modelling-mode-shift-at-the-city-level">Methods of modelling mode shift at the city level</a></li>
       <li><a href="#estimates-of-rates-of-shift-towards-walking-and-cycling-down-to-route-network-levels">Estimates of rates of shift towards walking and cycling down to route network levels</a></li>
       <li><a href="#simulating-the-impacts-citywide">Simulating the impacts citywide</a></li>
-      <li><a href="#running-upthat-locally">Running upthat locally</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>
