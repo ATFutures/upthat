@@ -11,13 +11,15 @@ bibliography: references.bib
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "90%"
 )
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-# library(tidyverse)
+```{r setup, include=FALSE, eval=FALSE}
+library(tidyverse)
+library(sf)
 ```
 
 ```{r refs, eval=FALSE}
@@ -36,7 +38,6 @@ citr::tidy_bib_file(rmd_file = "vignettes/upthat.Rmd", messy_bibliography = "~/u
 
 This report documents deliverable 2, scenario developement, for the WHO UPTHAT project, which involves:
 (1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be strongly informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.
-
 
 # High level policy scenarios of active transport uptake
 
@@ -61,7 +62,26 @@ To calculate scenarios of change, the minimum data requirements are the region's
 
 Mode split is one of the fundamental pieces of information that is known for most cities.
 For context, it's useful to take a step back and consider the range of modal splits observed in a sample of cities worldwide.
-The figure below shows the diversity in mode splits based on (primarily wealthy) cities, based on data of the type shown in the table below from [Wikipedia](https://en.wikipedia.org/wiki/Modal_share).
+Many sources of mode share data are available, including the following (none of which were used due lack of access to the underlying data or other issues):
+
+```{r, eval=FALSE}
+read.csv(stringsAsFactors = FALSE, text = "Source,Pros,Cons") %>% knitr::kable()
+```
+
+- [Transport Geography website](https://transportgeography.org/?page_id=5055), which provides an image of mode split
+- [The TEMS mode split tool](http://www.epomm.eu/tems/),  which provides a map but not the underlying data
+- [Various country-specific datasets](https://www.thetransportpolitic.com/databook/travel-mode-shares-in-the-u-s/)
+
+A problem with many datasets on mode split is that they ignore or oversimplify active transport.
+Examples of this are the [OECD](https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT) passenger transport dataset and the European Union's Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:
+
+```{r, out.width="50%"}
+knitr::include_graphics("https://ec.europa.eu/eurostat/statistics-explained/images/a/a8/Modal_split_of_inland_passenger_transport%2C_2016_%28%25_share_in_passenger-kilometres%29.png")
+```
+
+**This suggests the need for an open, international dataset on modal splits in major cities over time**.
+To overcome these issues we searched for crowd-sourced data on mode split.
+The figure below shows the diversity in mode splits based on 108 (primarily wealthy) cities, based on data of the type shown in the table below from [Wikipedia](https://en.wikipedia.org/wiki/Modal_share).
 
 ```{r, eval=FALSE}
 dc = readRDS(url("https://github.com/ATFutures/who3/raw/master/global-data/city-mode-split-wiki.Rds"))
@@ -96,7 +116,7 @@ This implication is that **if no policies have been implemented to promote alter
 
 ```{r, fig.show='hold', out.width="100%"}
 # see code/mode-split-cities.R
-knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki-cars.png")
+# knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki-cars.png")
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png")
 ```
 
@@ -114,6 +134,19 @@ This city level data allows models of mode split to be developed, assuming there
 Transport systems are complex, composed of hundreds of interrelated elements.
 For modelling purposes, it makes sense to condense available datasets down into a few key parameters per city, zone or origin-destination pair.
 The process of identifying and quantifying transport system variables should be be an open-ended and adaptable process that is able to respond when the input data changes (e.g. due to changes in the transport system or improved data availability/collection).
+The [Global City Data](https://data.london.gov.uk/dataset/global-city-data) dataset provides several transport-related variables on major cities, but the data are highly skewed towards wealthy cities, and are thus not suitable for developing nations.
+Instead, data from the [Natural Earth](https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-populated-places/) open data repository was used for basic city statistics, including (the ones used in this project):
+
+- Population
+- Area (km^2^)
+- Elevation
+- Country
+
+The city data, with these explanatory variables added, are shown in the figure below
+
+```{r}
+knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/cities-area-population.png")
+```
 
 This section therefore provides a framework for including key transport system variables, based on the assumption that additional/modified variables will be used in future iterations of the model.
 Key variables that are readily available for most cities include:
@@ -168,17 +201,6 @@ An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.
 ```{r modes-ghana, out.width="50%", fig.show='hold'}
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png")
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png")
-```
-
-# Running upthat locally
-
-Upthat is a fully open and reproducible web application.
-You can reproduce it on your computer on a local installation of R as follows:
-
-```{r repro, eval=FALSE}
-devtools::install_github("atfutures/upthat")
-library(upthat)
-upthat::runUpthat()
 ```
 
 

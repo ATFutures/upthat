@@ -29,6 +29,17 @@ For more advanced documentation, see the scenarios report and the adaptation man
 
 # Outputs
 
+# Running upthat locally
+
+Upthat is a fully open and reproducible web application.
+You can reproduce it on your computer on a local installation of R as follows:
+
+```{r repro, eval=FALSE}
+devtools::install_github("atfutures/upthat")
+library(upthat)
+upthat::runUpthat()
+```
+
 # Next steps
 
 
