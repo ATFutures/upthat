@@ -53,8 +53,6 @@ The aim is to show how the tool was built.^[
 See the [calibration report](https://github.com/ATFutures/who3/tree/master/calibration) for details on the methods used to distribute trips across transport networks and estimating exposure to air polution and physical activity.
 ]
 
-
-
 # Scenarios
 
 This section documents deliverable 2, scenario developement, for the WHO UPTHAT project, which involves:
@@ -469,5 +467,21 @@ The framework outlined above could accept an arbitrary number of modes and mode 
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png")
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png")
 ```
+
+# Adapting the scenarios of change
+
+The previous section outlines how additional of change can be added within the Bayesian framework using Dirichlet regression.
+The largest barrier to accurate predictions of mode shift following certain interventions, such as those described in the 5 scenarios above, was identified as being lack of data on mode split across cities, let alone with multiple time series enabling models to predict not only mode shift levels but change.
+This barrier is not insurmountable.
+If larger datasets on the dependent variable become available, the scenarios can be adapted to new city datasets as follows:
+
+- Acquisition of explanatory variables on transport systems. This can be done using bulk download and processing of OSM data, as has been demonstrated with the example of bus stops and tram systems above. Getting more explanatory variables for a larger sample size will take considerable time, perhaps 1 data scientist day per new variable added and 1 day per 200 cities.
+- Model training, assessment and prediction. This stage takes considerable time due to the computationally intensive nature of Markov chain Monte Carlo (MCMC) sampling used in Bayesian data analysis [@mcelreath_statistical_2016].
+- Estimates of uncertainty not only in the point estimates of mode split, but in the level of change that can be expected following specific interventions. For the confidence intervals displayed in the previous section to apply to the uptake of walking and cycling an extra stage is needed. This should not be difficult for a skilled Bayesian statistician but could take days for a data analyst new to the field of Bayesian statistics.
+- Refining the methods by which the top-down estimates of mode split feed into the flow generation model outlined in the calibration paper. In theory, the relationship between the top-down and bottom-up approaches should be two-way, because important information on a city's transport system is ascertained in the process of routing across its transport network.
+
+The bullet points above show that all of the technology and most of the data (although this is continuously evolving and depends on better mode split data across cities internationally) already exists for this approach to be deployed internationally and provides an indication of the amount of work required to do so.
+
+# Adapting the web app
 
 # References
