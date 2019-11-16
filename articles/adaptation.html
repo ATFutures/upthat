@@ -88,20 +88,10 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(upthat)</a></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># refs_cycle_hire = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JAK5PW5K", limit = 100))</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># refs_atf = RefManageR::ReadZotero(group = "418217", .params = list(collection = "TJEQMXJR", limit = 100))</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># o = ls()</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># r = o[grepl(pattern = "refs_", x = o)]</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># refs = do.call(what = c, args = mget(r))</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co"># ref_df = as.data.frame(refs)</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># # View(ref_df)</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># RefManageR::WriteBib(refs, "references.bib")</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">citr<span class="op">::</span><span class="kw">tidy_bib_file</span>(<span class="dt">rmd_file =</span> <span class="st">"vignettes/upthat.Rmd"</span>, <span class="dt">messy_bibliography =</span> <span class="st">"~/uaf/allrefs.bib"</span>, <span class="dt">file =</span> <span class="st">"vignettes/references.bib"</span>)</a></code></pre></div>
 <div id="scenarios" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scenarios" class="anchor"></a>Scenarios</h1>
-<p>This section documents deliverable 2, scenario developement, for the WHO UPTHAT project, which involves: (1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be strongly informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.</p>
+<p>This section documents deliverable 2, scenario developement, for the WHO UPTHAT project, which involves: (1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.</p>
 <!-- # High level policy scenarios of active transport uptake -->
 <p>High level priorities are to improve population health, air quality and safety levels. This means increasing the proportion of the population that gets regular physical activity, reducing motorized vehicle use in urban centres and providing walking and cycling routes that are away from or otherwise protected from motor traffic. Urban transport policies can meet each of these objectives, creating ‘win win win’ options. Reducing car use, for example, will directly improve air quality and indirectly improve health and safety levels.</p>
 <p>Specific scenarios of change include:</p>
@@ -117,7 +107,6 @@
 <a href="#citywide-scenarios-of-change" class="anchor"></a>Citywide scenarios of change</h2>
 <p>To calculate scenarios of change, the minimum data requirements are the region’s current modal split and data that can be used as explanatory variables, including data on transport infrastructure and car parking spaces, and data on the provision of public transport options.</p>
 <p>Mode split is one of the fundamental pieces of information that is known for most cities. For context, it’s useful to take a step back and consider the range of modal splits observed in a sample of cities worldwide. Many sources of mode share data are available, including the following (none of which were used due lack of access to the underlying data or other issues):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">text =</span> <span class="st">"Source,Pros,Cons"</span>) <span class="op">%&gt;%</span><span class="st"> </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
 <ul>
 <li>
 <a href="https://transportgeography.org/?page_id=5055">Transport Geography website</a>, which provides an image of mode split</li>
@@ -126,20 +115,8 @@
 <li><a href="https://www.thetransportpolitic.com/databook/travel-mode-shares-in-the-u-s/">Various country-specific datasets</a></li>
 </ul>
 <p>A problem with many datasets on mode split is that they ignore or oversimplify active transport. Examples of this are the <a href="https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT">OECD</a> passenger transport dataset and the European Union’s Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://ec.europa.eu/eurostat/statistics-explained/images/a/a8/Modal_split_of_inland_passenger_transport%2C_2016_%28%25_share_in_passenger-kilometres%29.png"</span>)</a></code></pre></div>
 <p><img src="https://ec.europa.eu/eurostat/statistics-explained/images/a/a8/Modal_split_of_inland_passenger_transport%2C_2016_%28%25_share_in_passenger-kilometres%29.png" width="50%"></p>
 <p><strong>This suggests the need for an open, international dataset on modal splits in major cities over time</strong>. To overcome these issues we searched for crowd-sourced data on mode split. The figure below shows the diversity in mode splits based on 108 (primarily wealthy) cities, based on data of the type shown in the table below from <a href="https://en.wikipedia.org/wiki/Modal_share">Wikipedia</a>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">dc =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/connections.html">url</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/global-data/city-mode-split-wiki.Rds"</span>))</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co"># dc = readRDS("global-data/city-mode-split-wiki.Rds")</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">k =<span class="st"> </span>dc <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">    walking <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(walking) <span class="op">|</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">    </span>cycling <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(cycling) <span class="op">|</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">    </span>pt <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(pt) <span class="op">|</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">    </span>car <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(car) <span class="op">|</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">    </span>car <span class="op">==</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(car) </a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">    ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">City</th>
@@ -199,12 +176,8 @@
 </tbody>
 </table>
 <p>The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adalaide, Australia). A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking. This view is shown on the right of the figure, which shows walking mode shares in the sample of cities ranging from only 3% to more than 1/3rd (in Madrid, Spain and Vilnius, Lithuania). It is interesting to note that while there is a roughly even distribution of mode shares by car, other modes have more skewed distributions. This could reflect the diversity of policies used to promote walking, cycling and public transport and the fact that cars tend to be the default. This implication is that <strong>if no policies have been implemented to promote alternatives, cars dominate</strong>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># see code/mode-split-cities.R</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki-cars.png")</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png"</span>)</a></code></pre></div>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png" width="100%"></p>
-<p>The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking. <strong>This strongly suggests that a reliable way to encourage walking in cities is through investment in public transport.</strong></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png"</span>)</a></code></pre></div>
+<p>The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking. <strong>This suggests that a reliable way to encourage walking in cities is through investment in public transport.</strong></p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png" width="50%"></p>
 <p>This city level data allows models of mode split to be developed, assuming there are sufficient explanatory variables defining the transport system.</p>
 </div>
@@ -219,33 +192,27 @@
 <li>Country</li>
 </ul>
 <p>The city data, with these explanatory variables added, are shown in the figure below</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/cities-area-population.png"</span>)</a></code></pre></div>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/cities-area-population.png"><!-- --></p>
 <p>This section therefore outlines a framework for including key transport system variables, based on the assumption that additional/modified variables will be used in future iterations of the model. Key variables that are readily available for most cities include:</p>
 <ul>
 <li>Percentage of the transport network that is dedicated to motor traffic (an alternative or suplementary measure could be the percentage of the city’s surface area dedicated to motor traffic)</li>
 <li>Provision for public transport, in terms of the percentage of the city’s area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations</li>
-<li>The percentage of the city’s transport network that is dedicated to cycling. Other important variables include average gradient, type of cycle network, level or car ownership and directness of cycle routes compared with driving routes <span class="citation">[@parkin_estimation_2008]</span>.</li>
+<li>The percentage of the city’s transport network that is dedicated to cycling. Other important variables include average gradient, type of cycle network, level or car ownership and directness of cycle routes compared with driving routes <span class="citation">(Parkin, Wardman, and Page 2008)</span>.</li>
 <li>Provision of walking infrastructure, for example the percentage of the city’s transport network that is footway</li>
 </ul>
-<p>Note that all the high level varibles outlined above are ‘scale free’, meaning that they do not depend on the city’s size. The scale free nature of such measures also means that they can be used to estimate mode shares not only at city levels but also at the level of ‘desire lines’ connecting origins and destinations, as with the use of average gradient as a predictor of cycling potential in the PCT <span class="citation">[@lovelace_propensity_2017]</span>. Some additional variables, such as distance and relative time/cost for alternative modes, only make sense when measured at the OD level.</p>
+<p>Note that all the high level varibles outlined above are ‘scale free’, meaning that they do not depend on the city’s size. The scale free nature of such measures also means that they can be used to estimate mode shares not only at city levels but also at the level of ‘desire lines’ connecting origins and destinations, as with the use of average gradient as a predictor of cycling potential in the PCT <span class="citation">(Lovelace et al. 2017)</span>. Some additional variables, such as distance and relative time/cost for alternative modes, only make sense when measured at the OD level.</p>
 </div>
 <div id="modelling-mode-shift" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modelling-mode-shift" class="anchor"></a>Modelling mode shift</h2>
-<p>Treating mode share as a dependent variable involves multiple interrelated dependent variables, which is problematic for standard regression approaches. An alternative used in cycling potential research has been to ‘expand’ mode split data into individual categorical variables <span class="citation">[@lovelace_propensity_2017, supplementary information]</span>. This strategy is computationally intensive however.</p>
-<p>The datasets presented in the previous section are examples of proportional outcomes, where we are interested in the mode split of all travel in a city. These types of data are common in ecological modelling <span class="citation">[@douma_analysing_2019]</span>, which provided a basis for investigating the question of citywide scenarios of mode shift in which modes are analogous to species. Dirichlet regression is a recently developed technique for modelling proportions based on a range of dependent variables <span class="citation">[@maier_dirichletreg_2014]</span>.</p>
-<p>Building on this work, support for Dirichlet regression was added to the R package <code>brms</code> <span class="citation">[@burkner_brms_2017]</span>, which implements a Bayesian modelling framework based on the stan C++ library, in 2018. The advantage of <code>brms</code> is that it estimates uncertainty, vital for effective ‘no-regrets’ policy making. A basic example of the outputs of a Dirichlet regression model run are shown in the figure below, which represents the result of a model run for a subset of 28 cities for which we have access to population (other explanatory variables included provision of metro and bikeshare schemes).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">m =<span class="st"> </span><span class="kw">brm</span>(mode <span class="op">~</span><span class="st"> </span>population <span class="op">+</span><span class="st"> </span>pt, <span class="dt">data =</span> d_min, <span class="dt">family =</span> <span class="kw">dirichlet</span>())</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">res =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(m2, new_data)</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction.png"</span>, <span class="st">"https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-metro.png"</span>))</a></code></pre></div>
+<p>Treating mode share as a dependent variable involves multiple interrelated dependent variables, which is problematic for standard regression approaches. An alternative used in cycling potential research has been to ‘expand’ mode split data into individual categorical variables <span class="citation">(Lovelace et al. 2017, supplementary information)</span>. This strategy is computationally intensive however.</p>
+<p>The datasets presented in the previous section are examples of proportional outcomes, where we are interested in the mode split of all travel in a city. These types of data are common in ecological modelling <span class="citation">(Douma and Weedon 2019)</span>, which provided a basis for investigating the question of citywide scenarios of mode shift in which modes are analogous to species. Dirichlet regression is a recently developed technique for modelling proportions based on a range of dependent variables <span class="citation">(Maier 2014)</span>.</p>
+<p>Building on this work, support for Dirichlet regression was added to the R package <code>brms</code> <span class="citation">(Bürkner 2017)</span>, which implements a Bayesian modelling framework based on the stan C++ library, in 2018. The advantage of <code>brms</code> is that it estimates uncertainty, vital for effective ‘no-regrets’ policy making. A basic example of the outputs of a Dirichlet regression model run are shown in the figure below, which represents the result of a model run for a subset of 28 cities for which we have access to population (other explanatory variables included provision of metro and bikeshare schemes).</p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-metro.png" width="50%"></p>
 <p>The result suggest that beyond a certain size, increasingly large city populations are associated with a lower proportion of trips made by driving in the sample of cities used. More explanatory variables can be added using this framework, including categorical variables such as <code>has_metro</code>, the results of which (that increase the mode share by public transport and notably walking in the results, which also show confidence intervals) are shown. Of course, the quality of the prediction relies on good input data predicting mode shift and relies on the assumption that cities are in equilibrium states. <strong>This strengthens the need for open data on mode shift at city, OD and local levels over time following a range of interventions.</strong></p>
 <p>Results using different explanatory variables on a slightly larger dataset (n = 101) show the generalisability of the modelling framework. The figure below shows more policy relevant explanatory variables: number of bus stops per inhabitant and the provision of a tram system, which is more viable in many cities than a metro system.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-bus-stops-100.png"</span>, <span class="st">"https://github.com/ATFutures/who3/raw/master/figures/mode-share-has-tram.png"</span>))</a></code></pre></div>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-bus-stops-100.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-has-tram.png" width="50%"></p>
 <p>The figure above shows the <em>marginal effect</em> of changes to one variable, holding all other variables equal. <strong>The model accounts for fixed effects such as population density that are hard to change with policy interventions.</strong> The relationship between population density and mode split is interesting in itself however, as shown in the figure below.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-density-100.png"</span>))</a></code></pre></div>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-density-100.png" width="60%" style="display: block; margin: auto;"></p>
 <p>Of course, we need more input data than the 101 cities taken from open data repositories shown above to reduce the confidence intervals. However, we have clearly demonstrated a robust and highly flexible way to model mode shift that accounts for the interrelations between different transport modes. The next step is to apply these models to real city datasets.</p>
 </div>
@@ -253,12 +220,13 @@
 <h2 class="hasAnchor">
 <a href="#estimates-of-rates-of-shift-towards-walking-and-cycling-down-to-route-network-levels" class="anchor"></a>Estimates of rates of shift towards walking and cycling down to route network levels</h2>
 <p>Taking Accra as an example, let’s see how the modelling framework can estimate mode shift (remember this is based on a small input dataset and a proof of concept rather than final results).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">m =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"model-result-brms-density-bus-stops-101.Rds"</span>)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(m)</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">accra =<span class="st"> </span>cities <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(City <span class="op">==</span><span class="st"> "Accra"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Density =</span> Population <span class="op">/</span><span class="st"> </span>Area) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(Density, bus_stops_per_<span class="dv">1000</span>, has_tram, <span class="op">-</span>geometry)</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(accra)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># note: depends on data in the who3 repo</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">cities =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"cities.Rds"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">m =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"model-result-brms-density-bus-stops-101.Rds"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(m)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">accra =<span class="st"> </span>cities <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(City <span class="op">==</span><span class="st"> "Accra"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Density =</span> Population <span class="op">/</span><span class="st"> </span>Area) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">select</span>(Density, bus_stops_per_<span class="dv">1000</span>, has_tram, <span class="op">-</span>geometry)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">City</th>
@@ -274,8 +242,7 @@
 </tr></tbody>
 </table>
 <p>The current mode split can be estimated as follows:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">mode_share_current_estimate =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(m, accra)[, , ]</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(mode_share_current_est, <span class="dt">digits =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mode_share_current_estimate =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(m, accra)[, , ]</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -321,21 +288,6 @@
 </tbody>
 </table>
 <p>In the PT scenario, we can increase the provision of buses to 10 per 1000 people, representing a high level of provision within the range of the sample of cities worldwide:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(cities<span class="op">$</span>bus_stops_per_<span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">accra_pt =<span class="st"> </span>accra <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">bus_stops_per_1000 =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">mode_share_pt_estimate =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span>(m, accra_pt)[, , ]</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(mode_share_pt_estimate, <span class="dt">digits =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>((mode_share_pt_estimate <span class="op">-</span><span class="st"> </span>mode_share_current_estimate)<span class="op">*</span><span class="dv">100</span>, <span class="dt">digits =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">conditions =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">bus_stops_per_1000 =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(accra<span class="op">$</span>bus_stops_per_<span class="dv">1000</span>, accra_pt<span class="op">$</span>bus_stops_per_<span class="dv">1000</span>))</a>
-<a class="sourceLine" id="cb15-7" data-line-number="7">effects =<span class="st"> </span><span class="kw">marginal_effects</span>(m, <span class="st">"Density"</span>, <span class="dt">conditions =</span> conditions, <span class="dt">categorical =</span> <span class="ot">TRUE</span>, <span class="dt">re_formula =</span> <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb15-8" data-line-number="8">effects</a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(effects)</a>
-<a class="sourceLine" id="cb15-10" data-line-number="10">effects </a>
-<a class="sourceLine" id="cb15-11" data-line-number="11">g =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(effects)</a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(g<span class="op">$</span><span class="st">`</span><span class="dt">Density:cats__</span><span class="st">`</span>)</a>
-<a class="sourceLine" id="cb15-13" data-line-number="13">g<span class="op">$</span><span class="st">`</span><span class="dt">Density:cats__</span><span class="st">`</span> <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> accra<span class="op">$</span>Density)</a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="kw">ggsave</span>(<span class="st">"figures/mode-share-prediction-accra.png"</span>)</a></code></pre></div>
 <p><strong>Estimated change in mode share (percentage points)</strong></p>
 <table class="table">
 <thead><tr class="header">
@@ -356,11 +308,9 @@
 </tr></tbody>
 </table>
 <p>The result can be shown graphically, as shown in the figure below, that shows mode split estimates under the two model experiment conditions: one in which Accra has 1.2 bus stops per person (as it does currently) and one in which it has 3. The x axis shows that this model experiment can be generalised over the parameter space, in this case with x representing density, and the verticle line representing Accra’s density (~5000 people per km2):</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-accra.png"</span>)</a></code></pre></div>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/mode-share-prediction-accra.png"><!-- --></p>
 <p>Under this scenario, the central estimate of car use drops by 12 percentage points while the central estimates for walking and cycling grow, by 2 percentage points and 4 percentage points, respectively. This highlights the synergies between active transport modes and bus use implicit in the data, <strong>suggesting that a combination of strong investment in public transport and active transport infrastructure can be complimentary.</strong> As mentioned already, larger input datasets, in particular with more example datasets from Africa and the developing world in general in this context, are needed to reduce the large confidence intervals around these estimates.</p>
 <p>The framework enables us to model changes in mode share that would result from changes in any variable, categorical or continuous. Based on the input data, the impact of a tram system in Accra could be simulated as follows:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">accra_tram =<span class="st"> </span>accra <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">has_tram =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>As with any model, the usefulness of the outputs rely on the quality of the inputs and the assumptions underlying the model. These limitations, which reflect the paucity of open, curated data on mode shift in cities internationally, are covered in the next section. They are such that the current data (which only has one data point in Africa and only a handful of cities in the developing world) is not deemed of sufficient size and diversity to make useful predictions of modal shift. Instead of presenting results based on limited input data, the remainder of this section outlines how mode shift <em>could</em> be estimated, provided sufficiently large and diverse input dataset on mode shift following interventions. The basic tennets of this method are that:</p>
 <ul>
 <li>Mode share in cities depends on measurable transport system characteristics such as number of bus stops, length of footways and walkways and cycleways and other explanatory variables.</li>
@@ -369,19 +319,19 @@
 <p>Based on these tennets, an approach to estimate mode shift in response to the scenarios outlined above is detailed below. We have shown that we can model multi-modal responses to continuous and categorical variables in a robus Bayesian framework with explicit treatment of uncertainty. Under this framework, the scenario definition can be simplified to the identification and modification of explanatory variables that are available at the city level for a sufficiently large sample (500+) settlements with sufficient diversity to represent the changes that could take place in the cities under consideration.</p>
 <p>Changes could be made in a systematic way to each of the predictors to represent change on the ground. Adding amounts to continuous variables by amounts determined by the input data, e.g. with 25<sup>th</sup>, 50<sup>th</sup> and 75<sup>th</sup> percentile increases representing low, medium and high levels of change, with a modifier (e.g. <span class="math inline">\(1 - current_provision / max_provision\)</span> ) to represent the law of diminishing returns, would be one way to achieve this (that was roughly the approach used in the example scenario of increasing bus stop provision in Accra).</p>
 <p>To provide a concrete example, imagine that the maximum number of bus stops in the city dataset is 15 per 1000 people and that the 75<sup>th</sup> percentile level of provision is 3 bus stops per 1000. In this case, an ambitious increase would be calculated for cities that currently have no bus stops, 1 bus stop, 10 and 15 bus stops per person as follows:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">max_provision =<span class="st"> </span><span class="dv">15</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">max_increase_in_provision =<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">current_provision =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">  <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb18-5" data-line-number="5">  <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb18-6" data-line-number="6">  <span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7">  <span class="dv">15</span></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb18-9" data-line-number="9">modifier =<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>current_provision <span class="op">/</span><span class="st"> </span>max_provision)</a>
-<a class="sourceLine" id="cb18-10" data-line-number="10">increase_in_provision =<span class="st"> </span>max_increase_in_provision <span class="op">*</span><span class="st"> </span>modifier</a>
-<a class="sourceLine" id="cb18-11" data-line-number="11">future_provision =<span class="st"> </span>current_provision <span class="op">+</span><span class="st"> </span>increase_in_provision </a>
-<a class="sourceLine" id="cb18-12" data-line-number="12">future_provision</a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt; [1]  3.0  3.8 11.0 15.0</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">max_provision =<span class="st"> </span><span class="dv">15</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">max_increase_in_provision =<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">current_provision =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dv">15</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">modifier =<span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>current_provision <span class="op">/</span><span class="st"> </span>max_provision)</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">increase_in_provision =<span class="st"> </span>max_increase_in_provision <span class="op">*</span><span class="st"> </span>modifier</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">future_provision =<span class="st"> </span>current_provision <span class="op">+</span><span class="st"> </span>increase_in_provision </a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">future_provision</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [1]  3.0  3.8 11.0 15.0</span></a></code></pre></div>
 <p>For categorical variables, the changes are simpler: a one-size-fits-all change to a categorical variable that will only affect cities that do not currently have a specific piece of infrastructure (e.g. a tram system in the example above).</p>
 <div id="get-walking" class="section level3">
 <h3 class="hasAnchor">
@@ -405,7 +355,7 @@
 <li>The provision of free cycle training facities</li>
 <li>The provision of a cycle hire scheme</li>
 </ul>
-<p>Other important variables include average gradient, type of cycle network, level or car ownership and directness of cycle routes compared with driving routes <span class="citation">[@parkin_estimation_2008]</span>.</p>
+<p>Other important variables include average gradient, type of cycle network, level or car ownership and directness of cycle routes compared with driving routes <span class="citation">(Parkin, Wardman, and Page 2008)</span>.</p>
 </div>
 <div id="car-diet" class="section level3">
 <h3 class="hasAnchor">
@@ -461,12 +411,6 @@
 <h2 class="hasAnchor">
 <a href="#data-limitations-and-discussion" class="anchor"></a>Data limitations and discussion</h2>
 <p>The data requirements of a robust model to estimate mode shift in the Bayesian, multi-model framework outlined above are substantial. The preliminary results are inherently limited by the small size and skewed nature of the input city dataset, shown in the map.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">cities =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="st">"../global-data/cities.Rds"</span>)</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tmap)</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/pkg/tmap/man/tmap_mode.html">tmap_mode</a></span>(<span class="st">"view"</span>)</a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span>(cities) <span class="op">+</span></a>
-<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tmap/man/tm_symbols.html">tm_dots</a></span>(<span class="dt">size =</span> <span class="st">"Population"</span>, <span class="dt">col =</span> <span class="st">"walking"</span>, <span class="dt">palette =</span> <span class="st">"viridis"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://pbs.twimg.com/media/EJf-Vo5WoAIfXQ2?format=png&amp;name=900x900"</span>)</a></code></pre></div>
 <p><img src="https://pbs.twimg.com/media/EJf-Vo5WoAIfXQ2?format=png&amp;name=900x900"><!-- --></p>
 <p>The map shows that there are only 2 cities with a high (40% +) level of walking, and these were cities that we added to the cities dataset. <strong>A priority for future is to expand this cities dataset to make it larger and more representative of cities where the the Upthat tool is most likely to be used.</strong></p>
 <p>Scenario development accounting for the transport systems in Accra and Kathmandu, as part of UHI project activities, must be based on current transport data. An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.</p>
@@ -474,14 +418,29 @@
 <p>A more conceptual question is how to account for the ordered nature of transport systems, e.g.:</p>
 <p>Walking &gt; Cycling &gt; Public Transport &gt; Cars</p>
 <p>In terms of typical costs per KM (assuming you have access to a bicycle) and the reverse order in terms of maximum speeds and energy costs per KM. The framework outlined above could accept an arbitrary number of modes and mode size, speed and energy requirements could be accounted for by adding hybrid variables such as ‘maximum potential mode share by mode walking/cycling’ based on data on average trip distances per city (which may not be available for most cities) and distance decay parameters published in the literature.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png"</span>)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html">include_graphics</a></span>(<span class="st">"https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png"</span>)</a></code></pre></div>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png" width="50%"></p>
 </div>
 </div>
-<div id="references" class="section level1">
+<div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
+<div id="refs" class="references">
+<div id="ref-burkner_brms_2017">
+<p>Bürkner, Paul-Christian. 2017. “Brms: An R Package for Bayesian Multilevel Models Using Stan.” <em>Journal of Statistical Software</em> 80 (1): 1–28. <a href="https://doi.org/10.18637/jss.v080.i01" class="uri">https://doi.org/10.18637/jss.v080.i01</a>.</p>
+</div>
+<div id="ref-douma_analysing_2019">
+<p>Douma, Jacob C., and James T. Weedon. 2019. “Analysing Continuous Proportions in Ecology and Evolution: A Practical Introduction to Beta and Dirichlet Regression.” <em>Methods in Ecology and Evolution</em> 10 (9): 1412–30. <a href="https://doi.org/10.1111/2041-210X.13234" class="uri">https://doi.org/10.1111/2041-210X.13234</a>.</p>
+</div>
+<div id="ref-lovelace_propensity_2017">
+<p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862" class="uri">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
+</div>
+<div id="ref-maier_dirichletreg_2014">
+<p>Maier, Marco J. 2014. “DirichletReg: Dirichlet Regression for Compositional Data in R.” 125. Department of Statistics and Mathematics, WU Vienna.</p>
+</div>
+<div id="ref-parkin_estimation_2008">
+<p>Parkin, John, Mark Wardman, and Matthew Page. 2008. “Estimation of the Determinants of Bicycle Mode Share for the Journey to Work Using Census Data.” <em>Transportation</em> 35 (1): 93–109. <a href="https://doi.org/10.1007/s11116-007-9137-5" class="uri">https://doi.org/10.1007/s11116-007-9137-5</a>.</p>
+</div>
+</div>
 </div>
   </div>
 
