@@ -44,6 +44,17 @@ cat vignettes/adaptation.Rmd >> /tmp/upthat-allvignettes.Rmd
 citr::tidy_bib_file(rmd_file = "/tmp/upthat-allvignettes.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "vignettes/references.bib")
 ```
 
+# Introduction
+
+The Upthat manual describes the 'front end' of the tool, which has been designed to be used by practitioners, policy-makers and interested members of the public.
+This document report's the 'back-end' of the web application and the framework it uses to estimate modal shift at the city level.
+It is designed to be used by developers, researchers and data analysts.
+The aim is to show how the tool was built.^[
+See the [calibration report](https://github.com/ATFutures/who3/tree/master/calibration) for details on the methods used to distribute trips across transport networks and estimating exposure to air polution and physical activity.
+]
+
+
+
 # Scenarios
 
 This section documents deliverable 2, scenario developement, for the WHO UPTHAT project, which involves:
