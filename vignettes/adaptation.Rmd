@@ -5,10 +5,12 @@ vignette: >
   %\VignetteIndexEntry{Adaptation manual}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: references.bib
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  echo = FALSE,
   collapse = TRUE,
   comment = "#>"
 )
@@ -24,6 +26,12 @@ library(tidyverse)
 library(sf)
 ```
 
+```{r, engine='bash', eval=FALSE}
+cp vignettes/upthat.Rmd /tmp/upthat-allvignettes.Rmd
+cat vignettes/adaptation.Rmd >> /tmp/upthat-allvignettes.Rmd
+```
+
+
 ```{r refs, eval=FALSE}
 # refs_cycle_hire = RefManageR::ReadZotero(group = "418217", .params = list(collection = "JAK5PW5K", limit = 100))
 # refs_atf = RefManageR::ReadZotero(group = "418217", .params = list(collection = "TJEQMXJR", limit = 100))
@@ -33,13 +41,13 @@ library(sf)
 # ref_df = as.data.frame(refs)
 # # View(ref_df)
 # RefManageR::WriteBib(refs, "references.bib")
-citr::tidy_bib_file(rmd_file = "vignettes/upthat.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "vignettes/references.bib")
+citr::tidy_bib_file(rmd_file = "/tmp/upthat-allvignettes.Rmd", messy_bibliography = "~/uaf/allrefs.bib", file = "vignettes/references.bib")
 ```
 
 # Scenarios
 
 This section documents deliverable 2, scenario developement, for the WHO UPTHAT project, which involves:
-(1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be strongly informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.
+(1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be  informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.
 
 <!-- # High level policy scenarios of active transport uptake -->
 
@@ -121,7 +129,7 @@ knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/ci
 ```
 
 The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking.
-**This strongly suggests that a reliable way to encourage walking in cities is through investment in public transport.**
+**This  suggests that a reliable way to encourage walking in cities is through investment in public transport.**
 
 ```{r, out.width="50%"}
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png")
@@ -212,14 +220,20 @@ The next step is to apply these models to real city datasets.
 
 Taking Accra as an example, let's see how the modelling framework can estimate mode shift (remember this is based on a small input dataset and a proof of concept rather than final results).
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo=TRUE}
+# note: depends on data in the who3 repo
+cities = readRDS("cities.Rds")
 m = readRDS("model-result-brms-density-bus-stops-101.Rds")
 class(m)
 accra = cities %>% filter(City == "Accra") %>% 
   mutate(Density = Population / Area) %>% 
   select(Density, bus_stops_per_1000, has_tram, -geometry)
+```
+
+```{r, eval=FALSE}
 knitr::kable(accra)
 ```
+
 
 |City  | Density| bus_stops_per_1000|has_tram |
 |:-----|-------:|------------------:|:--------|
@@ -228,8 +242,11 @@ knitr::kable(accra)
 
 The current mode split can be estimated as follows:
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, echo=TRUE}
 mode_share_current_estimate = predict(m, accra)[, , ]
+```
+
+```{r, eval=FALSE}
 knitr::kable(mode_share_current_est, digits = 2)
 ```
 
@@ -243,9 +260,11 @@ knitr::kable(mode_share_current_est, digits = 2)
 In the PT scenario, we can increase the provision of buses to 10 per 1000 people, representing a high level of provision within the range of the sample of cities worldwide:
 
 ```{r, eval=FALSE}
-summary(cities$bus_stops_per_1000)
 accra_pt = accra %>% mutate(bus_stops_per_1000 = 3)
 mode_share_pt_estimate = predict(m, accra_pt)[, , ]
+```
+
+```{r, eval=FALSE}
 knitr::kable(mode_share_pt_estimate, digits = 2)
 knitr::kable((mode_share_pt_estimate - mode_share_current_estimate)*100, digits = 1)
 conditions = data.frame(bus_stops_per_1000 = c(accra$bus_stops_per_1000, accra_pt$bus_stops_per_1000))
