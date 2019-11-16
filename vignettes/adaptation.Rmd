@@ -71,7 +71,7 @@ Specific scenarios of change include:
 - 'Get cycling', referring to a global scenario of cycling, as a result of citywide policies to provide safe cycleways.
 - 'Car diet', a global, citywide scenario of multi-modal transport change, showing reduced levels of driving following disincentives to own and use cars.
 - 'Go public transport', a global scenario of public transport uptake, linked to [SDG 11](https://sustainabledevelopment.un.org/sdg11).
-- 'Car free', meaning investment in car free city centers and other spaces, other locally specific scenarios, such as reductions in car parking spaces.
+- 'Car free', meaning investment in car free city centers, other car free spaces and other policies to reduce car ownership and use such as reductions in specific car parking spaces.
 
 ## Citywide scenarios of change
 
@@ -364,13 +364,13 @@ Key variables that are readily available for most cities, that could be modified
 
 - Provision of walking infrastructure, for example the percentage of the city's transport network that is footway
 - Average distance of demand-weighted walking routes from major (and therefore likely polluted) roads
-- Measures of pedestrian safety, e.g. pedestrian fatalities per bkm walked (where available)
+- Measures of pedestrian safety, e.g. pedestrian fatalities per billion km (bkm) walked (where available)
 
 ### Get cycling
 
 This scenario refers to a global scenario of cycling, as a result of citywide policies to provide safe cycleways.
 
-- The the provision of cycling infrastructure, which could be measured as KM/person or as a percentage of the length of the total transport network
+- The the provision of cycling infrastructure, which could be measured as km/person or as a percentage of the length of the total transport network
 - Number of cycle parking spaces per person
 - Number of cyclist fatalities per bkm cycled (where available)
 - The provision of free cycle training facilities
@@ -394,14 +394,13 @@ This scenario is a global scenario of public transport uptake, linked to [SDG 11
 It would involve modifying explanatory variables that represent public public transport provision.
 Variables we could change in this scenario could include:
 
-- Increase in the number of bus stops per person in the city, a crude measure which has already been demonstrated to be a powerful predictor of multi-mode shift away from cars. A specific scenario could increase the provision of bus stops by the median value in the data 
-
-in terms of the percentage of the city's area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations
+- Increase in the number of bus stops per person in the city, a crude measure which has already been demonstrated to be a powerful predictor of multi-mode shift away from cars. A specific scenario could increase the provision of bus stops by the median value in the data as outlined above.
+- Change in the percentage of the city's area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations
 
 
 ### Go car free
 
-This scenario refers means investment in car free city centers and other spaces, other locally specific scenarios, such as reductions in car parking spaces.
+This scenario refers to investment in car free city centers and other spaces, other locally specific scenarios, such as reductions in car parking spaces.
 
 - The proportion of the transport network on which cars can travel
 - The provision of car parking spaces per person
@@ -446,7 +445,7 @@ knitr::include_graphics("https://pbs.twimg.com/media/EJf-Vo5WoAIfXQ2?format=png&
 ```
 
 The map shows that there are only 2 cities with a high (40% +) level of walking, and these were cities that we added to the cities dataset.
-**A priority for future is to expand this cities dataset to make it larger and more representative of cities where the the Upthat tool is most likely to be used.**
+**A priority for future is to expand this cities dataset to make it larger and more representative of cities where the Upthat tool is most likely to be used.**
 
 Scenario development accounting for the transport systems in Accra and Kathmandu, as part of UHI project activities, must be based on current transport data.
 An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.
@@ -459,7 +458,7 @@ A more conceptual question is how to account for the ordered nature of transport
 
 Walking > Cycling > Public Transport > Cars
 
-In terms of typical costs per KM (assuming you have access to a bicycle) and the reverse order in terms of maximum speeds and energy costs per KM.
+In terms of typical costs per km (assuming you have access to a bicycle) and the reverse order in terms of maximum speeds and energy costs per km.
 The framework outlined above could accept an arbitrary number of modes and mode size, speed and energy requirements could be accounted for by adding hybrid variables such as 'maximum potential mode share by mode walking/cycling' based on data on average trip distances per city (which may not be available for most cities) and distance decay parameters published in the literature.
 
 
@@ -483,5 +482,23 @@ If larger datasets on the dependent variable become available, the scenarios can
 The bullet points above show that all of the technology and most of the data (although this is continuously evolving and depends on better mode split data across cities internationally) already exists for this approach to be deployed internationally and provides an indication of the amount of work required to do so.
 
 # Adapting the web app
+
+The Upthat web app itself is fully reproducible.
+An up-to-date R installation on a modern computer should reproduce a fully working version of the app with the following commands:
+
+```{r, eval=FALSE, echo=TRUE}
+remotes::install_github("atfutures/upthat")
+upthat::runUpthat()
+```
+
+To modify the Upthat source code, download the repo and open it in an editor such as RStudio, e.g. with the following commands on a Linux terminal:
+
+```{r, engine='bash', eval=FALSE, echo=TRUE}
+git clone git@github.com:atfutures/upthat
+rstudio upthat/upthat.Rproj
+```
+
+To view the updated version of the app after making changes rebuild it, e.g. with `Ctl+Shift+B` in RStudio and then re-run the app with the command `runUpthat()`.
+For more on modifying `shiny` apps see the documentation associated with the package [@chang_shiny_2015]or the in progress open source book [*Mastering Shiny*](https://mastering-shiny.org/) [@wickham_mastering_2020].
 
 # References
