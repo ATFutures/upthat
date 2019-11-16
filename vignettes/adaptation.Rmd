@@ -55,7 +55,7 @@ See the [calibration report](https://github.com/ATFutures/who3/tree/master/calib
 
 # Scenarios
 
-This section documents deliverable 2, scenario development, for the WHO UPTHAT project, which involves:
+This section documents deliverable 2, scenario development, for the WHO Upthat project, which involves:
 (1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be  informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.
 
 <!-- # High level policy scenarios of active transport uptake -->
@@ -89,7 +89,7 @@ read.csv(stringsAsFactors = FALSE, text = "Source,Pros,Cons") %>% knitr::kable()
 - [The TEMS mode split tool](http://www.epomm.eu/tems/),  which provides a map but not the underlying data
 - [Various country-specific datasets](https://www.thetransportpolitic.com/databook/travel-mode-shares-in-the-u-s/)
 
-A problem with many datasets on mode split is that they ignore or oversimplify active transport.
+A problem with many datasets on mode split is that they ignore or oversimplify active transport [e.g. @aguilera_passenger_2014].
 Examples of this are the [OECD](https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT) passenger transport dataset and the European Union's Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:
 
 ```{r, out.width="50%"}
@@ -124,7 +124,7 @@ k = dc %>%
 |Helsinki   |      37|      10| 30|  22|     1| 2016|
 
 The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adelaide, Australia).
-A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking.
+A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking [@tight_visions_2011].
 This view is shown on the right of the figure, which shows walking mode shares in the sample of cities ranging from only 3% to more than 1/3rd (in Madrid, Spain and Vilnius, Lithuania).
 It is interesting to note that while there is a roughly even distribution of mode shares by car, other modes have more skewed distributions.
 This could reflect the diversity of policies used to promote walking, cycling and public transport and the fact that cars tend to be the default.
@@ -165,18 +165,10 @@ The city data, with these explanatory variables added, are shown in the figure b
 knitr::include_graphics("https://github.com/ATFutures/who3/raw/master/figures/cities-area-population.png")
 ```
 
-This section therefore outlines a framework for including key transport system variables, based on the assumption that additional/modified variables will be used in future iterations of the model.
-Key variables that are readily available for most cities include:
-
-- Percentage of the transport network that is dedicated to motor traffic (an alternative or supplementary measure could be the percentage of the city's surface area dedicated to motor traffic)
-- Provision for public transport, in terms of the percentage of the city's area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations
-- The percentage of the city's transport network that is dedicated to cycling. Other important variables include average gradient, type of cycle network, level or car ownership and directness of cycle routes compared with driving routes [@parkin_estimation_2008]. 
-- Provision of walking infrastructure, for example the percentage of the city's transport network that is footway
-
-Note that all the high level variables outlined above are 'scale free', meaning that they do not depend on the city's size.
+A framework for estimating mode share needs to be flexible, to incorporate additional/modified variables that will become available.
+We suggest focussing on 'scale free', meaning that they do not depend on the city's size.
 The scale free nature of such measures also means that they can be used to estimate mode shares not only at city levels but also at the level of 'desire lines' connecting origins and destinations, as with the use of average gradient as a predictor of cycling potential in the PCT [@lovelace_propensity_2017].
 Some additional variables, such as distance and relative time/cost for alternative modes, only make sense when measured at the OD level.
-
 
 ## Modelling mode shift
 
@@ -360,11 +352,12 @@ For categorical variables, the changes are simpler: a one-size-fits-all change t
 
 This scenario refers to a global (meaning without spatial input components, but with spatially distributed consequences) walking uptake, as a result of citywide policies to promote safe and attractive walking.
 
-Key variables that are readily available for most cities, that could be modified by policies, include:
+Key variables that are readily available for most cities, that could be modified by policies, include [@kerr_jacqueline_perceived_2016]:
 
 - Provision of walking infrastructure, for example the percentage of the city's transport network that is footway
 - Average distance of demand-weighted walking routes from major (and therefore likely polluted) roads
 - Measures of pedestrian safety, e.g. pedestrian fatalities per billion km (bkm) walked (where available)
+- Connectivity, which can be measured in terms of average circuity for walking trips
 
 ### Get cycling
 
