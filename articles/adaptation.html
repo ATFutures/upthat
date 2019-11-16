@@ -105,7 +105,7 @@
 <li>‘Get cycling’, referring to a global scenario of cycling, as a result of citywide policies to provide safe cycleways.</li>
 <li>‘Car diet’, a global, citywide scenario of multi-modal transport change, showing reduced levels of driving following disincentives to own and use cars.</li>
 <li>‘Go public transport’, a global scenario of public transport uptake, linked to <a href="https://sustainabledevelopment.un.org/sdg11">SDG 11</a>.</li>
-<li>‘Car free’, meaning investment in car free city centers and other spaces, other locally specific scenarios, such as reductions in car parking spaces.</li>
+<li>‘Car free’, meaning investment in car free city centers, other car free spaces and other policies to reduce car ownership and use such as reductions in specific car parking spaces.</li>
 </ul>
 <div id="citywide-scenarios-of-change" class="section level2">
 <h2 class="hasAnchor">
@@ -346,7 +346,7 @@
 <ul>
 <li>Provision of walking infrastructure, for example the percentage of the city’s transport network that is footway</li>
 <li>Average distance of demand-weighted walking routes from major (and therefore likely polluted) roads</li>
-<li>Measures of pedestrian safety, e.g. pedestrian fatalities per bkm walked (where available)</li>
+<li>Measures of pedestrian safety, e.g. pedestrian fatalities per billion km (bkm) walked (where available)</li>
 </ul>
 </div>
 <div id="get-cycling" class="section level3">
@@ -354,7 +354,7 @@
 <a href="#get-cycling" class="anchor"></a>Get cycling</h3>
 <p>This scenario refers to a global scenario of cycling, as a result of citywide policies to provide safe cycleways.</p>
 <ul>
-<li>The the provision of cycling infrastructure, which could be measured as KM/person or as a percentage of the length of the total transport network</li>
+<li>The the provision of cycling infrastructure, which could be measured as km/person or as a percentage of the length of the total transport network</li>
 <li>Number of cycle parking spaces per person</li>
 <li>Number of cyclist fatalities per bkm cycled (where available)</li>
 <li>The provision of free cycle training facilities</li>
@@ -378,14 +378,14 @@
 <a href="#go-public-transport" class="anchor"></a>Go public transport</h3>
 <p>This scenario is a global scenario of public transport uptake, linked to <a href="https://sustainabledevelopment.un.org/sdg11">SDG 11</a>. It would involve modifying explanatory variables that represent public public transport provision. Variables we could change in this scenario could include:</p>
 <ul>
-<li>Increase in the number of bus stops per person in the city, a crude measure which has already been demonstrated to be a powerful predictor of multi-mode shift away from cars. A specific scenario could increase the provision of bus stops by the median value in the data</li>
+<li>Increase in the number of bus stops per person in the city, a crude measure which has already been demonstrated to be a powerful predictor of multi-mode shift away from cars. A specific scenario could increase the provision of bus stops by the median value in the data as outlined above.</li>
+<li>Change in the percentage of the city’s area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations</li>
 </ul>
-<p>in terms of the percentage of the city’s area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations</p>
 </div>
 <div id="go-car-free" class="section level3">
 <h3 class="hasAnchor">
 <a href="#go-car-free" class="anchor"></a>Go car free</h3>
-<p>This scenario refers means investment in car free city centers and other spaces, other locally specific scenarios, such as reductions in car parking spaces.</p>
+<p>This scenario refers to investment in car free city centers and other spaces, other locally specific scenarios, such as reductions in car parking spaces.</p>
 <ul>
 <li>The proportion of the transport network on which cars can travel</li>
 <li>The provision of car parking spaces per person</li>
@@ -417,12 +417,12 @@
 <a href="#data-limitations-and-discussion" class="anchor"></a>Data limitations and discussion</h2>
 <p>The data requirements of a robust model to estimate mode shift in the Bayesian, multi-model framework outlined above are substantial. The preliminary results are inherently limited by the small size and skewed nature of the input city dataset, shown in the map.</p>
 <p><img src="https://pbs.twimg.com/media/EJf-Vo5WoAIfXQ2?format=png&amp;name=900x900"><!-- --></p>
-<p>The map shows that there are only 2 cities with a high (40% +) level of walking, and these were cities that we added to the cities dataset. <strong>A priority for future is to expand this cities dataset to make it larger and more representative of cities where the the Upthat tool is most likely to be used.</strong></p>
+<p>The map shows that there are only 2 cities with a high (40% +) level of walking, and these were cities that we added to the cities dataset. <strong>A priority for future is to expand this cities dataset to make it larger and more representative of cities where the Upthat tool is most likely to be used.</strong></p>
 <p>Scenario development accounting for the transport systems in Accra and Kathmandu, as part of UHI project activities, must be based on current transport data. An overview for Ghana (a proxy for the travel pattern in Accra) is shown below.</p>
 <p>A more subtle data limitation surrounds modal categories. This is highlighted in the figure below which shows the full diversity of modes used in Accra from survey data on the left, and the effect of simplifying these categories into the modes which are most commonly reported. <strong>Future research should explore ways to gain data on and incorporate a richer diversity of transport modes.</strong></p>
 <p>A more conceptual question is how to account for the ordered nature of transport systems, e.g.:</p>
 <p>Walking &gt; Cycling &gt; Public Transport &gt; Cars</p>
-<p>In terms of typical costs per KM (assuming you have access to a bicycle) and the reverse order in terms of maximum speeds and energy costs per KM. The framework outlined above could accept an arbitrary number of modes and mode size, speed and energy requirements could be accounted for by adding hybrid variables such as ‘maximum potential mode share by mode walking/cycling’ based on data on average trip distances per city (which may not be available for most cities) and distance decay parameters published in the literature.</p>
+<p>In terms of typical costs per km (assuming you have access to a bicycle) and the reverse order in terms of maximum speeds and energy costs per km. The framework outlined above could accept an arbitrary number of modes and mode size, speed and energy requirements could be accounted for by adding hybrid variables such as ‘maximum potential mode share by mode walking/cycling’ based on data on average trip distances per city (which may not be available for most cities) and distance decay parameters published in the literature.</p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work.png" width="50%"><img src="https://github.com/ATFutures/who3/raw/master/figures/modes-ghana-work-simple.png" width="50%"></p>
 </div>
 </div>
@@ -432,7 +432,7 @@
 <p>The previous section outlines how additional of change can be added within the Bayesian framework using Dirichlet regression. The largest barrier to accurate predictions of mode shift following certain interventions, such as those described in the 5 scenarios above, was identified as being lack of data on mode split across cities, let alone with multiple time series enabling models to predict not only mode shift levels but change. This barrier is not insurmountable. If larger datasets on the dependent variable become available, the scenarios can be adapted to new city datasets as follows:</p>
 <ul>
 <li>Acquisition of explanatory variables on transport systems. This can be done using bulk download and processing of OSM data, as has been demonstrated with the example of bus stops and tram systems above. Getting more explanatory variables for a larger sample size will take considerable time, perhaps 1 data scientist day per new variable added and 1 day per 200 cities.</li>
-<li>Model training, assessment and prediction. This stage takes considerable time due to the computationally intensive nature of Markov chain Monte Carlo (MCMC) sampling used in Bayesian data analysis <span class="citation">(<span class="citeproc-not-found" data-reference-id="mcelreath_statistical_2016"><strong>???</strong></span>)</span>.</li>
+<li>Model training, assessment and prediction. This stage takes considerable time due to the computationally intensive nature of Markov chain Monte Carlo (MCMC) sampling used in Bayesian data analysis <span class="citation">(McElreath 2016)</span>.</li>
 <li>Estimates of uncertainty not only in the point estimates of mode split, but in the level of change that can be expected following specific interventions. For the confidence intervals displayed in the previous section to apply to the uptake of walking and cycling an extra stage is needed. This should not be difficult for a skilled Bayesian statistician but could take days for a data analyst new to the field of Bayesian statistics.</li>
 <li>Refining the methods by which the top-down estimates of mode split feed into the flow generation model outlined in the calibration paper. In theory, the relationship between the top-down and bottom-up approaches should be two-way, because important information on a city’s transport system is ascertained in the process of routing across its transport network.</li>
 </ul>
@@ -441,6 +441,13 @@
 <div id="adapting-the-web-app" class="section level1">
 <h1 class="hasAnchor">
 <a href="#adapting-the-web-app" class="anchor"></a>Adapting the web app</h1>
+<p>The Upthat web app itself is fully reproducible. An up-to-date R installation on a modern computer should reproduce a fully working version of the app with the following commands:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"atfutures/upthat"</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">upthat<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/upthat/man/runUpthat.html">runUpthat</a></span>()</a></code></pre></div>
+<p>To modify the Upthat source code, download the repo and open it in an editor such as RStudio, e.g. with the following commands on a Linux terminal:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">git</span> clone git@github.com:atfutures/upthat</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="ex">rstudio</span> upthat/upthat.Rproj</a></code></pre></div>
+<p>To view the updated version of the app after making changes rebuild it, e.g. with <code>Ctl+Shift+B</code> in RStudio and then re-run the app with the command <code><a href="../reference/runUpthat.html">runUpthat()</a></code>. For more on modifying <code>shiny</code> apps see the documentation associated with the package <span class="citation">(Chang et al. 2015)</span>or the in progress open source book <a href="https://mastering-shiny.org/"><em>Mastering Shiny</em></a> <span class="citation">(Wickham 2020)</span>.</p>
 </div>
 <div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
@@ -448,6 +455,9 @@
 <div id="refs" class="references">
 <div id="ref-burkner_brms_2017">
 <p>Bürkner, Paul-Christian. 2017. “Brms: An R Package for Bayesian Multilevel Models Using Stan.” <em>Journal of Statistical Software</em> 80 (1): 1–28. <a href="https://doi.org/10.18637/jss.v080.i01" class="uri">https://doi.org/10.18637/jss.v080.i01</a>.</p>
+</div>
+<div id="ref-chang_shiny_2015">
+<p>Chang, Winston, Joe Cheng, J J Allaire, Yihui Xie, and Jonathan McPherson. 2015. <em>Shiny: Web Application Framework for R</em>.</p>
 </div>
 <div id="ref-douma_analysing_2019">
 <p>Douma, Jacob C., and James T. Weedon. 2019. “Analysing Continuous Proportions in Ecology and Evolution: A Practical Introduction to Beta and Dirichlet Regression.” <em>Methods in Ecology and Evolution</em> 10 (9): 1412–30. <a href="https://doi.org/10.1111/2041-210X.13234" class="uri">https://doi.org/10.1111/2041-210X.13234</a>.</p>
@@ -458,8 +468,14 @@
 <div id="ref-maier_dirichletreg_2014">
 <p>Maier, Marco J. 2014. “DirichletReg: Dirichlet Regression for Compositional Data in R.” 125. Department of Statistics and Mathematics, WU Vienna.</p>
 </div>
+<div id="ref-mcelreath_statistical_2016">
+<p>McElreath, Richard. 2016. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. 1 edition. Boca Raton: Chapman and Hall/CRC.</p>
+</div>
 <div id="ref-parkin_estimation_2008">
 <p>Parkin, John, Mark Wardman, and Matthew Page. 2008. “Estimation of the Determinants of Bicycle Mode Share for the Journey to Work Using Census Data.” <em>Transportation</em> 35 (1): 93–109. <a href="https://doi.org/10.1007/s11116-007-9137-5" class="uri">https://doi.org/10.1007/s11116-007-9137-5</a>.</p>
+</div>
+<div id="ref-wickham_mastering_2020">
+<p>Wickham, Hadley. 2020. <em>Mastering Shiny</em>.</p>
 </div>
 </div>
 </div>
