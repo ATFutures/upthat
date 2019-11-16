@@ -96,7 +96,7 @@
 <div id="scenarios" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scenarios" class="anchor"></a>Scenarios</h1>
-<p>This section documents deliverable 2, scenario development, for the WHO UPTHAT project, which involves: (1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.</p>
+<p>This section documents deliverable 2, scenario development, for the WHO Upthat project, which involves: (1) setting out high level policy scenarios of active transport uptake; (2) converting these changes into estimates of rates of shift towards walking and cycling down to route network levels; and (3) simulating the impacts of these scenarios on walking and cycling levels citywide. Scenario development will also be informed by the transport scenarios assessed in Accra and Kathmandu as part of UHI project activities.</p>
 <!-- # High level policy scenarios of active transport uptake -->
 <p>High level priorities are to improve population health, air quality and safety levels. This means increasing the proportion of the population that gets regular physical activity, reducing motorized vehicle use in urban centers and providing walking and cycling routes that are away from or otherwise protected from motor traffic. Urban transport policies can meet each of these objectives, creating ‘win win win’ options. Reducing car use, for example, will directly improve air quality and indirectly improve health and safety levels.</p>
 <p>Specific scenarios of change include:</p>
@@ -119,7 +119,7 @@
 <a href="http://www.epomm.eu/tems/">The TEMS mode split tool</a>, which provides a map but not the underlying data</li>
 <li><a href="https://www.thetransportpolitic.com/databook/travel-mode-shares-in-the-u-s/">Various country-specific datasets</a></li>
 </ul>
-<p>A problem with many datasets on mode split is that they ignore or oversimplify active transport. Examples of this are the <a href="https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT">OECD</a> passenger transport dataset and the European Union’s Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:</p>
+<p>A problem with many datasets on mode split is that they ignore or oversimplify active transport <span class="citation">(e.g. Aguil’era and Gr’ebert 2014)</span>. Examples of this are the <a href="https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT">OECD</a> passenger transport dataset and the European Union’s Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:</p>
 <p><img src="https://ec.europa.eu/eurostat/statistics-explained/images/a/a8/Modal_split_of_inland_passenger_transport%2C_2016_%28%25_share_in_passenger-kilometres%29.png" width="50%"></p>
 <p><strong>This suggests the need for an open, international dataset on modal splits in major cities over time</strong>. To overcome these issues we searched for crowd-sourced data on mode split. The figure below shows the diversity in mode splits based on 108 (primarily wealthy) cities, based on data of the type shown in the table below from <a href="https://en.wikipedia.org/wiki/Modal_share">Wikipedia</a>.</p>
 <table class="table">
@@ -180,7 +180,7 @@
 </tr>
 </tbody>
 </table>
-<p>The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adelaide, Australia). A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking. This view is shown on the right of the figure, which shows walking mode shares in the sample of cities ranging from only 3% to more than 1/3rd (in Madrid, Spain and Vilnius, Lithuania). It is interesting to note that while there is a roughly even distribution of mode shares by car, other modes have more skewed distributions. This could reflect the diversity of policies used to promote walking, cycling and public transport and the fact that cars tend to be the default. This implication is that <strong>if no policies have been implemented to promote alternatives, cars dominate</strong>.</p>
+<p>The figure shows that cars dominate the transport systems of most cities, accounting for a mode shares ranging from 18% (Osaka, Japan) to 85% (Adelaide, Australia). A more useful way to view travel systems from an active transport perspective is to view walking as the foundation of transport systems and all other modes to supplement walking <span class="citation">(Tight et al. 2011)</span>. This view is shown on the right of the figure, which shows walking mode shares in the sample of cities ranging from only 3% to more than 1/3rd (in Madrid, Spain and Vilnius, Lithuania). It is interesting to note that while there is a roughly even distribution of mode shares by car, other modes have more skewed distributions. This could reflect the diversity of policies used to promote walking, cycling and public transport and the fact that cars tend to be the default. This implication is that <strong>if no policies have been implemented to promote alternatives, cars dominate</strong>.</p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-split-wiki.png" width="100%"></p>
 <p>The relationships between the different modes is illustrated in the figure below, which suggests competition between all modes and cars (with public transport seeming to be the biggest deterrent to driving in this dataset), and synergies between public transport and walking. <strong>This suggests that a reliable way to encourage walking in cities is through investment in public transport.</strong></p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/city-mode-cor.png" width="50%"></p>
@@ -198,14 +198,7 @@
 </ul>
 <p>The city data, with these explanatory variables added, are shown in the figure below</p>
 <p><img src="https://github.com/ATFutures/who3/raw/master/figures/cities-area-population.png"><!-- --></p>
-<p>This section therefore outlines a framework for including key transport system variables, based on the assumption that additional/modified variables will be used in future iterations of the model. Key variables that are readily available for most cities include:</p>
-<ul>
-<li>Percentage of the transport network that is dedicated to motor traffic (an alternative or supplementary measure could be the percentage of the city’s surface area dedicated to motor traffic)</li>
-<li>Provision for public transport, in terms of the percentage of the city’s area within walking distance (e.g. 300m) of public transport nodes such as bus stops and rail stations</li>
-<li>The percentage of the city’s transport network that is dedicated to cycling. Other important variables include average gradient, type of cycle network, level or car ownership and directness of cycle routes compared with driving routes <span class="citation">(Parkin, Wardman, and Page 2008)</span>.</li>
-<li>Provision of walking infrastructure, for example the percentage of the city’s transport network that is footway</li>
-</ul>
-<p>Note that all the high level variables outlined above are ‘scale free’, meaning that they do not depend on the city’s size. The scale free nature of such measures also means that they can be used to estimate mode shares not only at city levels but also at the level of ‘desire lines’ connecting origins and destinations, as with the use of average gradient as a predictor of cycling potential in the PCT <span class="citation">(Lovelace et al. 2017)</span>. Some additional variables, such as distance and relative time/cost for alternative modes, only make sense when measured at the OD level.</p>
+<p>A framework for estimating mode share needs to be flexible, to incorporate additional/modified variables that will become available. We suggest focussing on ‘scale free’, meaning that they do not depend on the city’s size. The scale free nature of such measures also means that they can be used to estimate mode shares not only at city levels but also at the level of ‘desire lines’ connecting origins and destinations, as with the use of average gradient as a predictor of cycling potential in the PCT <span class="citation">(Lovelace et al. 2017)</span>. Some additional variables, such as distance and relative time/cost for alternative modes, only make sense when measured at the OD level.</p>
 </div>
 <div id="modelling-mode-shift" class="section level2">
 <h2 class="hasAnchor">
@@ -342,11 +335,12 @@
 <h3 class="hasAnchor">
 <a href="#get-walking" class="anchor"></a>Get walking</h3>
 <p>This scenario refers to a global (meaning without spatial input components, but with spatially distributed consequences) walking uptake, as a result of citywide policies to promote safe and attractive walking.</p>
-<p>Key variables that are readily available for most cities, that could be modified by policies, include:</p>
+<p>Key variables that are readily available for most cities, that could be modified by policies, include <span class="citation">(Kerr Jacqueline et al. 2016)</span>:</p>
 <ul>
 <li>Provision of walking infrastructure, for example the percentage of the city’s transport network that is footway</li>
 <li>Average distance of demand-weighted walking routes from major (and therefore likely polluted) roads</li>
 <li>Measures of pedestrian safety, e.g. pedestrian fatalities per billion km (bkm) walked (where available)</li>
+<li>Connectivity, which can be measured in terms of average circuity for walking trips</li>
 </ul>
 </div>
 <div id="get-cycling" class="section level3">
@@ -453,6 +447,9 @@
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
+<div id="ref-aguilera_passenger_2014">
+<p>Aguil’era, Anne, and Jean Gr’ebert. 2014. “Passenger Transport Mode Share in Cities: Exploration of Actual and Future Trends with a Worldwide Survey.” <em>International Journal of Automotive Technology and Management</em> 14 (3-4): 203–16. <a href="https://doi.org/10.1504/IJATM.2014.065290" class="uri">https://doi.org/10.1504/IJATM.2014.065290</a>.</p>
+</div>
 <div id="ref-burkner_brms_2017">
 <p>Bürkner, Paul-Christian. 2017. “Brms: An R Package for Bayesian Multilevel Models Using Stan.” <em>Journal of Statistical Software</em> 80 (1): 1–28. <a href="https://doi.org/10.18637/jss.v080.i01" class="uri">https://doi.org/10.18637/jss.v080.i01</a>.</p>
 </div>
@@ -461,6 +458,9 @@
 </div>
 <div id="ref-douma_analysing_2019">
 <p>Douma, Jacob C., and James T. Weedon. 2019. “Analysing Continuous Proportions in Ecology and Evolution: A Practical Introduction to Beta and Dirichlet Regression.” <em>Methods in Ecology and Evolution</em> 10 (9): 1412–30. <a href="https://doi.org/10.1111/2041-210X.13234" class="uri">https://doi.org/10.1111/2041-210X.13234</a>.</p>
+</div>
+<div id="ref-kerr_jacqueline_perceived_2016">
+<p>Kerr Jacqueline, Emond Jennifer A., Badland Hannah, Reis Rodrigo, Sarmiento Olga, Carlson Jordan, Sallis James F., et al. 2016. “Perceived Neighborhood Environmental Attributes Associated with Walking and Cycling for Transport Among Adult Residents of 17 Cities in 12 Countries: The IPEN Study.” <em>Environmental Health Perspectives</em> 124 (3): 290–98. <a href="https://doi.org/10.1289/ehp.1409466" class="uri">https://doi.org/10.1289/ehp.1409466</a>.</p>
 </div>
 <div id="ref-lovelace_propensity_2017">
 <p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/10.5198/jtlu.2016.862" class="uri">https://doi.org/10.5198/jtlu.2016.862</a>.</p>
@@ -473,6 +473,9 @@
 </div>
 <div id="ref-parkin_estimation_2008">
 <p>Parkin, John, Mark Wardman, and Matthew Page. 2008. “Estimation of the Determinants of Bicycle Mode Share for the Journey to Work Using Census Data.” <em>Transportation</em> 35 (1): 93–109. <a href="https://doi.org/10.1007/s11116-007-9137-5" class="uri">https://doi.org/10.1007/s11116-007-9137-5</a>.</p>
+</div>
+<div id="ref-tight_visions_2011">
+<p>Tight, Miles, Paul Timms, David Banister, Jemma Bowmaker, Jonathan Copas, Andy Day, David Drinkwater, et al. 2011. “Visions for a Walking and Cycling Focussed Urban Transport System.” <em>Journal of Transport Geography</em> 19 (6): 1580–9. <a href="https://doi.org/10.1016/j.jtrangeo.2011.03.011" class="uri">https://doi.org/10.1016/j.jtrangeo.2011.03.011</a>.</p>
 </div>
 <div id="ref-wickham_mastering_2020">
 <p>Wickham, Hadley. 2020. <em>Mastering Shiny</em>.</p>
