@@ -5,6 +5,9 @@ vignette: >
   %\VignetteIndexEntry{Upthat user manual}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography:
+  - references.bib
+  - package-references.bib
 ---
 
 ```{r, include = FALSE}
@@ -17,6 +20,7 @@ knitr::opts_chunk$set(
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 # library(tidyverse)
+knitr::write_bib(x = c("mapdeck", "shiny"), file = "package-references.bib")
 ```
 
 # Introduction
@@ -25,9 +29,25 @@ This is the user manual of the Urban Health Impact Assessment Tool (upthat).
 It focusses on using the tool via an interactive web application, currently hosted at https://atfutures.github.io/uta/.
 For more advanced documentation, see the scenarios report and the adaptation manual.
 
-# User interface options
+# User interface
+
+The user interface (UI) shown below has four main components:
+
+- Interactive map: this allows the user to zoom, pan and even tilt the city, using controls that are documented in the `mapdeck` R package [@R-mapdeck]
+- City: this is used for changing cities
+- Scenarios: this dropdown menu allows users to choose from a range of pre-specified scenarios
+- Mode: selecting different modes from this dropdown menu reveals estimated flows of that mode on the road network
+
+```{r}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/69012592-604e8580-096f-11ea-9140-1a646e164741.png")
+```
 
 # Outputs
+
+The two main outputs of the tool, for a given scenario, are:
+
+1. Estimates of where active transport levels are likely to be highest
+2. Estimates of the health impacts of different scenarios (work in progress)
 
 # Running upthat locally
 
@@ -39,9 +59,5 @@ devtools::install_github("atfutures/upthat")
 library(upthat)
 upthat::runUpthat()
 ```
-
-# Next steps
-
-
 
 # References
