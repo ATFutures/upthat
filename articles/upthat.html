@@ -93,26 +93,41 @@
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>This is the user manual of the Urban Health Impact Assessment Tool (upthat). It focusses on using the tool via an interactive web application, currently hosted at <a href="https://atfutures.github.io/uta/" class="uri">https://atfutures.github.io/uta/</a>. For more advanced documentation, see the scenarios report and the adaptation manual.</p>
 </div>
-<div id="user-interface-options" class="section level1">
+<div id="user-interface" class="section level1">
 <h1 class="hasAnchor">
-<a href="#user-interface-options" class="anchor"></a>User interface options</h1>
+<a href="#user-interface" class="anchor"></a>User interface</h1>
+<p>The user interface (UI) shown below has four main components:</p>
+<ul>
+<li>Interactive map: this allows the user to zoom, pan and even tilt the city, using controls that are documented in the <code>mapdeck</code> R package <span class="citation">(Cooley 2019)</span>
+</li>
+<li>City: this is used for changing cities</li>
+<li>Scenarios: this dropdown menu allows users to choose from a range of pre-specified scenarios</li>
+<li>Mode: selecting different modes from this dropdown menu reveals estimated flows of that mode on the road network</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/1825120/69012592-604e8580-096f-11ea-9140-1a646e164741.png"><!-- --></p>
 </div>
 <div id="outputs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#outputs" class="anchor"></a>Outputs</h1>
+<p>The two main outputs of the tool, for a given scenario, are:</p>
+<ol style="list-style-type: decimal">
+<li>Estimates of where active transport levels are likely to be highest</li>
+<li>Estimates of the health impacts of different scenarios (work in progress)</li>
+</ol>
 </div>
 <div id="running-upthat-locally" class="section level1">
 <h1 class="hasAnchor">
 <a href="#running-upthat-locally" class="anchor"></a>Running upthat locally</h1>
 <p>Upthat is a fully open and reproducible web application. You can reproduce it on your computer on a local installation of R as follows:</p>
 </div>
-<div id="next-steps" class="section level1">
-<h1 class="hasAnchor">
-<a href="#next-steps" class="anchor"></a>Next steps</h1>
-</div>
-<div id="references" class="section level1">
+<div id="references" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
+<div id="refs" class="references">
+<div id="ref-R-mapdeck">
+<p>Cooley, David. 2019. <em>Mapdeck: Interactive Maps Using ’Mapbox Gl Js’ and ’Deck.gl’</em>. <a href="https://CRAN.R-project.org/package=mapdeck" class="uri">https://CRAN.R-project.org/package=mapdeck</a>.</p>
+</div>
+</div>
 </div>
   </div>
 
@@ -123,10 +138,9 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#user-interface-options">User interface options</a></li>
+      <li><a href="#user-interface">User interface</a></li>
       <li><a href="#outputs">Outputs</a></li>
       <li><a href="#running-upthat-locally">Running upthat locally</a></li>
-      <li><a href="#next-steps">Next steps</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>
