@@ -32,7 +32,8 @@ shinyAppServer = function(input, output, session) {
     )
   )
 
-  net <<- readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
+  # Defaults to first 'city', so should load that data by default
+  net <<- readRDS(system.file("net-accra.Rds", package = "upthat"))
   net$layer <- net$flow
   rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
