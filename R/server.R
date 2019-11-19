@@ -32,8 +32,7 @@ shinyAppServer = function(input, output, session) {
     )
   )
 
-  #if ("net" %in% ls ()) rm (net)
-  net = readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
+  net <<- readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
   net$layer <- net$flow
   rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
 
@@ -41,12 +40,11 @@ shinyAppServer = function(input, output, session) {
     mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
   })
 
-
   observeEvent({input$city}, {
 
     matching_file = rds_files_available[grepl(pattern = input$city, x = rds_files_available, ignore.case = TRUE)]
     if (length(matching_file) == 1) {
-      net = readRDS(matching_file)
+      net <<- readRDS(matching_file)
     } else {
       message(length(matching_file),  " files found")
     }
@@ -56,17 +54,13 @@ shinyAppServer = function(input, output, session) {
   })
 
   observeEvent({input$layer}, {
-    matching_file = rds_files_available[grepl(pattern = input$city, x = rds_files_available, ignore.case = TRUE)]
-    if (length(matching_file) == 1) {
-      net = readRDS(matching_file)
-    } else {
-      message(length(matching_file),  " files found")
-    }
       if (input$layer == "pedestrian flow") {
           net$layer <- net$flow
       } else if (input$layer == "exposure") {
           if ("exposure" %in% names (net))
               net$layer <- net$exposure
+          else
+              net$layer <- net$flow
       }
       plot_layer (net)
   })
