@@ -34,8 +34,10 @@ shinyAppServer = function(input, output, session) {
 
   net <<- readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
   net$layer <- net$flow
-  rds_files_available = list.files(path = "inst", pattern = ".Rds", full.names = TRUE)
-
+  rds_files_available = c(
+    list.files(pattern = "net-", full.names = TRUE),
+    list.files(path = "inst", pattern = "net-", full.names = TRUE)
+  )
   output$mymap = mapdeck::renderMapdeck({
     mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
   })
