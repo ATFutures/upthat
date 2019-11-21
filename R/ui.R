@@ -4,7 +4,7 @@
 #' @import shiny
 #' @import leaflet
 #' @export
-shinyAppUI <- fluidPage(
+shinyAppUI = fluidPage(
   shiny::titlePanel("Urban Planning and Transport Health Assessment Tool (upthat)"),
   column(12, shiny::htmlOutput("app_info")),
   column(width = 3,

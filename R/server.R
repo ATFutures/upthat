@@ -33,7 +33,7 @@ shinyAppServer = function(input, output, session) {
   )
 
   net <<- readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
-  net$layer <- net$flow
+  net$layer = net$flow
   rds_files_available = c(
     list.files(pattern = "net-", full.names = TRUE),
     list.files(path = "inst", pattern = "net-", full.names = TRUE)
@@ -50,25 +50,25 @@ shinyAppServer = function(input, output, session) {
     } else {
       message(length(matching_file),  " files found")
     }
-    net$layer <- net$flow
+    net$layer = net$flow
 
     plot_layer (net)
   })
 
   observeEvent({input$layer}, {
       if (input$layer == "pedestrian flow") {
-          net$layer <- net$flow
+          net$layer = net$flow
       } else if (input$layer == "exposure") {
           if ("exposure" %in% names (net))
-              net$layer <- net$exposure
+              net$layer = net$exposure
           else
-              net$layer <- net$flow
+              net$layer = net$flow
       }
       plot_layer (net)
   })
 }
 
-plot_layer <- function (net) {
+plot_layer = function (net) {
     net$width = 20 * net$layer / max (net$layer, na.rm = TRUE)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
       mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
