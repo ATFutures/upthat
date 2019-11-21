@@ -48,7 +48,8 @@ shinyAppServer = function(input, output, session) {
     if (length(matching_file) == 1) {
       net <<- readRDS(matching_file)
     } else {
-      message(length(matching_file),  " files found")
+      message(length(matching_file),  " files found, selecting the first")
+      matching_file = matching_file[1]
     }
     net$layer = net$flow
 
