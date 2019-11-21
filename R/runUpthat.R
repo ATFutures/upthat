@@ -5,6 +5,6 @@
 #'
 #' @import shiny
 #' @export
-runUpthat <- function() {
+runUpthat = function() {
   shinyApp(ui = shinyAppUI, server = shinyAppServer)
 }
