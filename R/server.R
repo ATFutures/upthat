@@ -32,12 +32,12 @@ shinyAppServer = function(input, output, session) {
     )
   )
 
-  net <<- readRDS(system.file("net-kathmandu.Rds", package = "upthat"))
   net$layer = net$flow
   rds_files_available = c(
     list.files(pattern = "net-", full.names = TRUE),
     list.files(path = "inst", pattern = "net-", full.names = TRUE)
   )
+  message("Found these Rds files: ", rds_files_available)
   output$mymap = mapdeck::renderMapdeck({
     mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
   })
@@ -45,14 +45,16 @@ shinyAppServer = function(input, output, session) {
   observeEvent({input$city}, {
 
     matching_file = rds_files_available[grepl(pattern = input$city, x = rds_files_available, ignore.case = TRUE)]
-    if (length(matching_file) == 1) {
-      net <<- readRDS(matching_file)
-    } else {
+    if (length(matching_file) > 1){
       message(length(matching_file),  " files found, selecting the first")
       matching_file = matching_file[1]
     }
+    if (length(matching_file) < 1){
+      matching_file = system.file("net-kathmandu.Rds", package = "upthat")
+    }
+    message("Reading this matching file: ", matching_file)
+    net <<- readRDS(matching_file)
     net$layer = net$flow
-
     plot_layer (net)
   })
 
