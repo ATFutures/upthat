@@ -1,3 +1,4 @@
+devtools::load_all()
 upthat::runUpthat()
 # library(upthat)
 # shinyApp(ui = shinyAppUI, server = shinyAppServer)
