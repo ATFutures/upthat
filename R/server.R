@@ -32,7 +32,6 @@ shinyAppServer = function(input, output, session) {
     )
   )
 
-  net$layer = net$flow
   rds_files_available = c(
     list.files(pattern = "net-", full.names = TRUE),
     list.files(path = "inst", pattern = "net-", full.names = TRUE)
