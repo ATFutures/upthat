@@ -72,7 +72,7 @@ shinyAppServer = function(input, output, session) {
 }
 
 plot_layer = function (net) {
-    net$width = 20 * net$layer / max (net$layer, na.rm = TRUE)
+    net$width = 100 * net$layer / max (net$layer, na.rm = TRUE)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
       mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
                         net,
