@@ -36,7 +36,8 @@ shinyAppServer = function(input, output, session) {
     list.files(pattern = "net-", full.names = TRUE),
     list.files(path = "inst", pattern = "net-", full.names = TRUE)
   )
-  message("Found these Rds files: ", rds_files_available)
+  message("Found these Rds files: ",
+          paste0 (rds_files_available, collapse = ", "))
   output$mymap = mapdeck::renderMapdeck({
     mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
   })
