@@ -22,4 +22,6 @@ RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown
+Remotes:
+    SymbolixAU/mapdeck
 VignetteBuilder: knitr

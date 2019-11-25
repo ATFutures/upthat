@@ -55,7 +55,7 @@ shinyAppServer = function(input, output, session) {
     message("Reading this matching file: ", matching_file)
     net <<- readRDS(matching_file)
     net$layer = net$flow
-    plot_layer (net)
+    plot_layer (net, input$layer)
   })
 
   observeEvent({input$layer}, {
@@ -67,18 +67,28 @@ shinyAppServer = function(input, output, session) {
           else
               net$layer = net$flow
       }
-      plot_layer (net)
+      plot_layer (net, input$layer)
   })
 }
 
-plot_layer = function (net) {
+plot_layer = function (net, leg_title) {
     net$width = 100 * net$layer / max (net$layer, na.rm = TRUE)
+    cols <- rgb (colourvalues::get_palette ("inferno"), maxColorValue = 255)
+    variables <- seq (min (net$layer), max (net$layer), length.out = 5)
+    variables <- signif (variables, digits = 2)
+    index <- seq (1, length (cols), length.out = length (variables))
+    leg <- mapdeck::legend_element (
+                                    variables = variables,
+                                    colours = cols [index],
+                                    colour_type = "fill",
+                                    variable_type = "gradient",
+                                    title = leg_title)
     mapdeck::mapdeck_update(map_id = "mymap") %>%
       mapdeck::add_path(palette = "inferno", # see colourvalues::color_palettes()
                         net,
                         stroke_colour = "layer",
                         stroke_width = "width",
                         stroke_opacity = "layer",
-                        legend = TRUE,
-                        layer_id = "mylayer")
+                        legend = leg,
+                        layer_id = "mylayer") 
 }
