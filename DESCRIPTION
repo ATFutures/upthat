@@ -18,7 +18,8 @@ Imports:
     tmap (>= 2.3),
     mapdeck (>= 0.2.1)
 Remotes:
-    mtennekes/tmap,
+    SymbolixAU/geojsonsf,
+    SymbolixAU/spatialwidget,
     SymbolixAU/mapdeck
 RoxygenNote: 6.1.1
 Suggests: 
