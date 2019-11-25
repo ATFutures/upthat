@@ -1,4 +1,4 @@
-devtools::load_all()
+remotes::install_local()
 upthat::runUpthat()
 # library(upthat)
 # shinyApp(ui = shinyAppUI, server = shinyAppServer)

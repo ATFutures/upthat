@@ -17,4 +17,4 @@ knitr::opts_chunk$set(
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-For the scenarios, see the scenarios vignette or the [who3](https://github.com/ATFutures/who3/tree/master/scenarios) repo for the code.
+For the scenarios, see the [adaptation vignette](https://atfutures.github.io/upthat/articles/adaptation.html) or the [who3](https://github.com/ATFutures/who3/tree/master/scenarios) repo for the code.

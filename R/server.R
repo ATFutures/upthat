@@ -49,8 +49,8 @@ shinyAppServer = function(input, output, session) {
       message(length(matching_file),  " files found, selecting the first")
       matching_file = matching_file[1]
     }
-    if (length(matching_file) < 1){
-      matching_file = system.file("net-kathmandu.Rds", package = "upthat")
+    if (length(matching_file) < 1){ # if there are no matches
+      matching_file = system.file("net.Rds", package = "upthat")
     }
     message("Reading this matching file: ", matching_file)
     net <<- readRDS(matching_file)
