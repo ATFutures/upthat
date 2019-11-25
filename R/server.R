@@ -33,7 +33,7 @@ shinyAppServer = function(input, output, session) {
   )
 
   rds_files_available = c(
-    list.files(pattern = "net-", full.names = TRUE),
+    #list.files(pattern = "net-", full.names = TRUE),
     list.files(path = "inst", pattern = "net-", full.names = TRUE)
   )
   message("Found these Rds files: ",
@@ -75,6 +75,8 @@ plot_layer = function (net, leg_title) {
     net$width = 100 * net$layer / max (net$layer, na.rm = TRUE)
     cols <- rgb (colourvalues::get_palette ("inferno"), maxColorValue = 255)
     variables <- seq (min (net$layer), max (net$layer), length.out = 5)
+    if (variables [1] < 1e-6)
+        variables [1] <- 0
     variables <- signif (variables, digits = 2)
     index <- seq (1, length (cols), length.out = length (variables))
     leg <- mapdeck::legend_element (
