@@ -17,11 +17,11 @@ Imports:
     sf (>= 0.7.6),
     tmap (>= 2.3),
     mapdeck (>= 0.2.1)
-Remotes: mtennekes/tmap
+Remotes:
+    mtennekes/tmap,
+    SymbolixAU/mapdeck
 RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown
-Remotes:
-    SymbolixAU/mapdeck
 VignetteBuilder: knitr
