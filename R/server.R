@@ -55,7 +55,7 @@ shinyAppServer = function(input, output, session) {
     message("Reading this matching file: ", matching_file)
     net <<- readRDS(matching_file)
     net$layer = net$flow
-    plot_layer (net, input$layer)
+    plot_layer (net, input$layer, update_view = TRUE)
   })
 
   observeEvent({input$layer}, {
@@ -67,11 +67,11 @@ shinyAppServer = function(input, output, session) {
           else
               net$layer = net$flow
       }
-      plot_layer (net, input$layer)
+      plot_layer (net, input$layer, update_view = FALSE)
   })
 }
 
-plot_layer = function (net, leg_title) {
+plot_layer = function (net, leg_title, update_view = FALSE) {
     net$width = 100 * net$layer / max (net$layer, na.rm = TRUE)
     cols <- rgb (colourvalues::get_palette ("inferno"), maxColorValue = 255)
     variables <- seq (min (net$layer), max (net$layer), length.out = 5)
@@ -92,5 +92,6 @@ plot_layer = function (net, leg_title) {
                         stroke_width = "width",
                         stroke_opacity = "layer",
                         legend = leg,
+                        update_view = update_view,
                         layer_id = "mylayer") 
 }
