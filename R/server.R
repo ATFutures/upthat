@@ -80,6 +80,22 @@ shinyAppServer = function(input, output, session) {
       plot_layer(net, input$layer, update_view = FALSE)
     }
   )
+
+  observeEvent(
+    eventExpr = {input$recalc},
+    {
+      if (input$layer == "pedestrian flow") {
+        net$layer = net$flow
+      } else if (input$layer == "exposure") {
+        if ("exposure" %in% names(net)) {
+          net$layer = net$exposure
+        } else {
+          net$layer = net$flow
+        }
+      }
+      plot_layer(net, input$layer, update_view = TRUE)
+    }
+    )
 }
 
 plot_layer = function(net, leg_title, update_view = FALSE) {
