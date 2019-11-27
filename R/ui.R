@@ -20,5 +20,5 @@ shinyAppUI = fluidPage(
          mapdeck::mapdeckOutput ("mymap")
   ),
   p(),
-  actionButton("recalc", "Recalculate scenario")
+  actionButton("recalc", "Zoom to city extent")
 )
