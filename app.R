@@ -1,4 +1,5 @@
-remotes::install_local()
+# remotes::install_local()
+# piggyback::pb_download()
 upthat::runUpthat()
 # library(upthat)
 # shinyApp(ui = shinyAppUI, server = shinyAppServer)

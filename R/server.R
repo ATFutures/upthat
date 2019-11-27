@@ -33,7 +33,7 @@ shinyAppServer = function(input, output, session) {
   )
 
   rds_files_available = c(
-    #list.files(pattern = "net-", full.names = TRUE),
+    list.files(pattern = "net-", full.names = TRUE),
     list.files(path = "inst", pattern = "net-", full.names = TRUE)
   )
   message("Found these Rds files: ",
@@ -46,7 +46,8 @@ shinyAppServer = function(input, output, session) {
 
     matching_file = rds_files_available[grepl(pattern = input$city, x = rds_files_available, ignore.case = TRUE)]
     if (length(matching_file) > 1){
-      message(length(matching_file),  " files found, selecting the first")
+      mmsg = paste(matching_file, collapse = ", ")
+      message(length(matching_file),  " files found:", mmsg, "selecting the first")
       matching_file = matching_file[1]
     }
     if (length(matching_file) < 1){ # if there are no matches
@@ -93,5 +94,5 @@ plot_layer = function (net, leg_title, update_view = FALSE) {
                         stroke_opacity = "layer",
                         legend = leg,
                         update_view = update_view,
-                        layer_id = "mylayer") 
+                        layer_id = "mylayer")
 }
