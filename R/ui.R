@@ -15,8 +15,6 @@ shinyAppUI = fluidPage(
          sliderInput("obs", "Investment (US $ millions):", min = 0, max = 50, value = 0.5, step = 0.1)
   ),
   column(width = 9,
-         #tmap::tmapOutput("mymap")
-         #leaflet::leafletOutput("mymap")
          mapdeck::mapdeckOutput ("mymap")
   ),
   p(),
