@@ -1,4 +1,5 @@
-remotes::install_local()
+devtools::load_all()
+# piggyback::pb_download()
 upthat::runUpthat()
 # library(upthat)
 # shinyApp(ui = shinyAppUI, server = shinyAppServer)
@@ -7,7 +8,8 @@ upthat::runUpthat()
 # library(leaflet)
 # library(upthat)
 #
-# source("https://github.com/atfutures-labs/upthat/raw/master/R/ui.R")
-# source("https://github.com/atfutures-labs/upthat/raw/master/R/server.R")
-#
-# shiny::shinyApp(ui = shinyAppUI, server = shinyAppServer)
+source("https://github.com/atfutures-labs/upthat/raw/master/R/ui.R")
+source("https://github.com/atfutures-labs/upthat/raw/master/R/server.R")
+
+library(shiny)
+shiny::shinyApp(ui = shinyAppUI, server = shinyAppServer)
