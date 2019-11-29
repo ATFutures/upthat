@@ -37,7 +37,7 @@ shinyAppServer = function(input, output, session) {
     paste0(rds_files_available, collapse = ", ")
   )
 
-  ggplot2::theme_set (ggplot2::theme_minimal ())
+  ggplot2::theme_set(ggplot2::theme_minimal())
 
   output$mymap = mapdeck::renderMapdeck({
     mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
@@ -98,12 +98,12 @@ shinyAppServer = function(input, output, session) {
     }
     )
 
-  x <- reactive ({
-    g <- plot_chart (city = input$city_sc)
-    return (g)
+  x = reactive({
+    g = plot_chart(city = input$city_sc)
+    return(g)
   })
-  output$plot = renderPlot ({
-    print (x ())
+  output$plot = renderPlot({
+    print(x())
   })
 
 }
@@ -137,15 +137,15 @@ plot_map = function(net, leg_title, update_view = FALSE) {
     )
 }
 
-plot_chart = function (city) {
-    x <- calc_exposure (city = city, has_tram = FALSE)
-    x$mortality_reduction <- x$d_mortality - x$exposure
+plot_chart = function(city) {
+    x = calc_exposure(city = city, has_tram = FALSE)
+    x$mortality_reduction = x$d_mortality - x$exposure
     # suppress no visible binding notes:
-    bus_stops_per_1000 <- mortality_reduction <- NULL
-    ggplot2::ggplot (x, ggplot2::aes (x = bus_stops_per_1000,
-                                      y = mortality_reduction)) +
-        ggplot2::geom_point () + 
-        ggplot2::geom_line () +
-        ggplot2::geom_smooth (method = "lm") +
-        ggplot2::theme (axis.title.y = ggplot2::element_text (angle = 90))
+    bus_stops_per_1000 = mortality_reduction = NULL
+    ggplot2::ggplot(x, ggplot2::aes(x = bus_stops_per_1000,
+                                    y = mortality_reduction)) +
+        ggplot2::geom_point() + 
+        ggplot2::geom_line() +
+        ggplot2::geom_smooth(method = "lm") +
+        ggplot2::theme(axis.title.y = ggplot2::element_text(angle = 90))
 }
