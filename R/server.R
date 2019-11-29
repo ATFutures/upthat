@@ -145,6 +145,7 @@ plot_chart = function (city) {
     ggplot2::ggplot (x, ggplot2::aes (x = bus_stops_per_1000,
                                       y = mortality_reduction)) +
         ggplot2::geom_point () + 
+        ggplot2::geom_line () +
         ggplot2::geom_smooth (method = "lm") +
         ggplot2::theme (axis.title.y = ggplot2::element_text (angle = 90))
 }
