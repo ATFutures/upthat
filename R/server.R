@@ -38,6 +38,9 @@ shinyAppServer = function(input, output, session) {
     "Found these Rds files: ",
     paste0(rds_files_available, collapse = ", ")
   )
+
+  ggplot2::theme_set (ggplot2::theme_minimal ())
+
   output$mymap = mapdeck::renderMapdeck({
     mapdeck::mapdeck(style = "mapbox://styles/mapbox/light-v10")
   })
@@ -59,7 +62,7 @@ shinyAppServer = function(input, output, session) {
       message("Reading this matching file: ", matching_file)
       net <<- readRDS(matching_file)
       net$layer = net$flow
-      plot_layer(net, input$layer, update_view = TRUE)
+      plot_map(net, input$layer, update_view = TRUE)
     }
   )
 
@@ -77,7 +80,7 @@ shinyAppServer = function(input, output, session) {
           net$layer = net$flow
         }
       }
-      plot_layer(net, input$layer, update_view = FALSE)
+      plot_map(net, input$layer, update_view = FALSE)
     }
   )
 
@@ -93,12 +96,21 @@ shinyAppServer = function(input, output, session) {
           net$layer = net$flow
         }
       }
-      plot_layer(net, input$layer, update_view = TRUE)
+      plot_map(net, input$layer, update_view = TRUE)
     }
     )
+
+  x <- reactive ({
+    g <- plot_chart (city = input$city_sc)
+    return (g)
+  })
+  output$plot = renderPlot ({
+    print (x ())
+  })
+
 }
 
-plot_layer = function(net, leg_title, update_view = FALSE) {
+plot_map = function(net, leg_title, update_view = FALSE) {
   net$width = 100 * net$layer / max(net$layer, na.rm = TRUE)
   cols = rgb(colourvalues::get_palette("inferno"), maxColorValue = 255)
   variables = seq(min(net$layer), max(net$layer), length.out = 5)
@@ -125,4 +137,14 @@ plot_layer = function(net, leg_title, update_view = FALSE) {
       update_view = update_view,
       layer_id = "mylayer"
     )
+}
+
+plot_chart = function (city) {
+    x <- calc_exposure (city = city, has_tram = FALSE)
+    x$mortality_reduction <- x$d_mortality - x$exposure
+    ggplot2::ggplot (x, ggplot2::aes (x = bus_stops_per_1000,
+                                           y = mortality_reduction)) +
+        ggplot2::geom_point () + 
+        ggplot2::geom_smooth (method = "lm") +
+        ggplot2::theme (axis.title.y = ggplot2::element_text (angle = 90))
 }

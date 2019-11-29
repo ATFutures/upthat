@@ -22,12 +22,10 @@ shinyAppUI = navbarPage("Urban Planning and Transport Health Assessment Tool (up
   ),
   tabPanel("Scenarios",
     column(width=3,
-           selectInput("city", label = "City",  choices = c("Accra", "Kathmandu", "Bristol", "NYC")),
-           br(),
-           sliderInput("bus", "Number of bus stops added per 1,000", value = 1, min = 1, max = 10)
+           selectInput("city_sc", label = "City",  choices = c("Accra", "Kathmandu", "Bristol", "NYC"))
     ),
     column(width=9,
-           selectInput("other", label = "Other",  choices = c("Accra", "Kathmandu", "Bristol", "NYC"))
+           plotOutput("plot")
     )
   )
 )
