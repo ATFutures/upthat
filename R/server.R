@@ -110,7 +110,7 @@ shinyAppServer = function(input, output, session) {
 
 plot_map = function(net, leg_title, update_view = FALSE) {
   net$width = 100 * net$layer / max(net$layer, na.rm = TRUE)
-  cols = rgb(colourvalues::get_palette("inferno"), maxColorValue = 255)
+  cols = grDevices::rgb(colourvalues::get_palette("inferno"), maxColorValue = 255)
   variables = seq(min(net$layer), max(net$layer), length.out = 5)
   if (variables [1] < 1e-6) {
     variables [1] = 0
@@ -140,8 +140,10 @@ plot_map = function(net, leg_title, update_view = FALSE) {
 plot_chart = function (city) {
     x <- calc_exposure (city = city, has_tram = FALSE)
     x$mortality_reduction <- x$d_mortality - x$exposure
+    # suppress no visible binding notes:
+    bus_stops_per_1000 <- mortality_reduction <- NULL
     ggplot2::ggplot (x, ggplot2::aes (x = bus_stops_per_1000,
-                                           y = mortality_reduction)) +
+                                      y = mortality_reduction)) +
         ggplot2::geom_point () + 
         ggplot2::geom_smooth (method = "lm") +
         ggplot2::theme (axis.title.y = ggplot2::element_text (angle = 90))

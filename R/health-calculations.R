@@ -60,10 +60,10 @@ get_scenario_results <- function (city = "Accra", has_tram = FALSE) {
         u <- paste0 ("https://github.com/ATFutures/upthat/releases/",
                      "download/0.0.2/", nm)
         path <- dirname (system.file ("net.Rds", package = "upthat"))
-        download.file (u, destfile = file.path (path, nm))
+        utils::download.file (u, destfile = file.path (path, nm))
         f <- system.file (nm, package = "upthat")
     }
-    mode_shift <- read.csv (f)
+    mode_shift <- utils::read.csv (f)
     mode_shift [tolower (mode_shift$City) == tolower (city) &
                 mode_shift$has_tram == has_tram, ]
 }
