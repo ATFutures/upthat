@@ -233,6 +233,7 @@ calc_exposure <- function (city = "Accra", has_tram = FALSE) {
     # capped at 50, but all well below here, so can be left as is
 
     d_exposure <- pm25_scenario - pm25_ref
-    response$exposure <- get_population (city) * mortality * d_exposure * 0.07 / 10
+    response$exposure <- get_population (city) *
+        get_mortality () * d_exposure * 0.07 / 10
     return (response)
 }
