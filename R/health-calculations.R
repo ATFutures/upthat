@@ -91,6 +91,8 @@ calc_exposure <- function (city = "Accra", has_tram = FALSE) {
     response <- mode_shift_response (mode_incr = mode_shift$walking / 100,
                                      city_pop = get_population (city),
                                      mortality = get_mortality ())
+
+    mode_shift <- cbind (mode_shift, response [, -1])
                                      
     # average weekly concentration for reference case:
     walk_time <- response$dist_ref / 5.3
@@ -104,7 +106,7 @@ calc_exposure <- function (city = "Accra", has_tram = FALSE) {
     # capped at 50, but all well below here, so can be left as is
 
     d_exposure <- pm25_scenario - pm25_ref
-    response$exposure <- get_population (city) *
+    mode_shift$exposure <- get_population (city) *
         get_mortality () * d_exposure * 0.07 / 10
-    return (response)
+    return (mode_shift)
 }
