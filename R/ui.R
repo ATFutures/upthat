@@ -20,7 +20,7 @@ shinyAppUI = navbarPage("Urban Planning and Transport Health Assessment Tool (up
     p(),
     actionButton("recalc", "Zoom to city extent")
   ),
-  tabPanel("Scenarios",
+  tabPanel("Health Impacts",
     column(width=3,
            selectInput("city_sc", label = "City",  choices = c("Accra", "Kathmandu", "Bristol", "NYC"))
     ),
