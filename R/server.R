@@ -4,8 +4,6 @@
 #' @param output provided by shiny
 #' @param session The shiny session
 
-#' @import leaflet
-#' @import tmap
 #' @export
 # Define server logic required to draw a histogram
 shinyAppServer = function(input, output, session) {
