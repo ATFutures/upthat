@@ -3,7 +3,7 @@
 .RData
 .Ruserdata
 .Renviron
-net-*.Rds
+*.Rds
 # vim files
 .*.un~
 .*.swp
