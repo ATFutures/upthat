@@ -6,7 +6,7 @@
 library(dplyr)
 library(sf)
 
-city_name = "accra"
+city_name = "kathmandu"
 n = 500 # how many crashes?
 
 # how much more likely are serious and fatal crashes relative to UK data?
@@ -41,7 +41,6 @@ simulated_crash_points = net_sam %>%
   st_transform(st_crs(net_sam))
 class(simulated_crash_points)
 plot(simulated_crash_points)
-
 
 # combine and save --------------------------------------------------------
 
