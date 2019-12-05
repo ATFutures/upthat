@@ -46,6 +46,7 @@ shinyAppServer = function(input, output, session) {
   observeEvent(
     {
       input$city
+      input$safety
     },
     {
       matching_file = rds_files_available[grepl(pattern = input$city, x = rds_files_available, ignore.case = TRUE)]
@@ -59,8 +60,17 @@ shinyAppServer = function(input, output, session) {
       }
       message("Reading this matching file: ", matching_file)
       net <<- readRDS(matching_file)
+      crashes_file_name = paste0("crashes-simulated-", tolower(input$city), ".Rds")
+
+      crashes <<- readRDS(crashes_file_name)
       net$layer = net$flow
-      plot_map(net, input$layer, update_view = TRUE)
+      if(input$safety) {
+        plot_map(net, input$layer, update_view = TRUE) %>%
+          plot_crashes(crashes = crashes)
+      } else {
+        plot_map(net, input$layer, update_view = TRUE) %>%
+          mapdeck::clear_scatterplot()
+      }
     }
   )
 
@@ -144,7 +154,7 @@ plot_chart = function(city) {
     bus_stops_per_1000 = mortality_reduction = NULL
     ggplot2::ggplot(x, ggplot2::aes(x = bus_stops_per_1000,
                                     y = mortality_reduction)) +
-        ggplot2::geom_point() + 
+        ggplot2::geom_point() +
         ggplot2::geom_line() +
         ggplot2::geom_smooth(method = "lm") +
         ggplot2::theme(axis.title.y = ggplot2::element_text(angle = 90))

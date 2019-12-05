@@ -17,17 +17,6 @@ numeric_to_levels(crashes$crashes_numeric)
 
 library(mapdeck)
 
-l1 = legend_element(
-  variables = serious_levels
-  , colours = c("#00FF00FF", "#FF0000FF")
-  , colour_type = "fill"
-  , variable_type = "category"
-)
-js = mapdeck_legend(l1)
-
-
-
-
 mapdeck(style = 'mapbox://styles/mapbox/dark-v9', pitch = 45 ) %>%
   mapdeck::add_sf(
     data = crashes,
@@ -37,3 +26,30 @@ mapdeck(style = 'mapbox://styles/mapbox/dark-v9', pitch = 45 ) %>%
     legend = TRUE,
     palette = "rdylbu"
   )
+
+# as a function to add on to an existing map  -----------------------------
+
+map = mapdeck(style = 'mapbox://styles/mapbox/dark-v9', pitch = 45 )
+
+plot_crashes = function(map, crashes) {
+  map %>%
+    mapdeck::add_sf(
+      data = crashes,
+      radius_max_pixels = 20,
+      radius_min_pixels = 5,
+      fill_colour = "crash_severity",
+      legend = TRUE,
+      palette = "rdylbu"
+    )}
+
+map %>% plot_crashes(crashes = crashes)
+
+l1 = legend_element(
+  variables = serious_levels
+  , colours = c("#00FF00FF", "#FF0000FF")
+  , colour_type = "fill"
+  , variable_type = "category"
+)
+js = mapdeck_legend(l1)
+
+
