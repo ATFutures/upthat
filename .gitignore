@@ -12,3 +12,4 @@
 *.so
 docs/
 inst/doc
+scenario-results-table.csv
