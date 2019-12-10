@@ -79,13 +79,24 @@ shinyAppServer = function(input, output, session) {
       input$layer
     },
     {
-      if (input$layer == "pedestrian flow") {
+      if (input$layer == "Pedestrian flow") {
         net$layer = net$flow
-      } else if (input$layer == "exposure") {
-        if ("exposure" %in% names(net)) {
-          net$layer = net$exposure
+      } else if (input$layer == "Vehicular flow") {
+        if ("centrality" %in% names(net)) {
+          net$layer = net$centrality
         } else {
           net$layer = net$flow
+        }
+      } else if (input$layer == "Vehicular emissions") {
+        if ("centrality_disp" %in% names(net)) {
+          net$layer = net$centrality_disp
+        } else {
+          net$layer = net$flow
+        }
+      } else if (input$layer == "Pedestrian exposure") {
+        net$layer = net$flow
+        if ("centrality_disp" %in% names(net)) {
+          net$layer = net$flow * net$centrality_disp
         }
       }
       plot_map(net, input$layer, update_view = FALSE)
@@ -95,13 +106,24 @@ shinyAppServer = function(input, output, session) {
   observeEvent(
     eventExpr = {input$recalc},
     {
-      if (input$layer == "pedestrian flow") {
+      if (input$layer == "Pedestrian flow") {
         net$layer = net$flow
-      } else if (input$layer == "exposure") {
-        if ("exposure" %in% names(net)) {
-          net$layer = net$exposure
+      } else if (input$layer == "Vehicular flow") {
+        if ("centrality" %in% names(net)) {
+          net$layer = net$centrality
         } else {
           net$layer = net$flow
+        }
+      } else if (input$layer == "Vehicular emissions") {
+        if ("centrality_disp" %in% names(net)) {
+          net$layer = net$centrality_disp
+        } else {
+          net$layer = net$flow
+        }
+      } else if (input$layer == "Pedestrian exposure") {
+        net$layer = net$flow
+        if ("centrality_disp" %in% names(net)) {
+          net$layer = net$flow * net$centrality_disp
         }
       }
       plot_map(net, input$layer, update_view = TRUE)
