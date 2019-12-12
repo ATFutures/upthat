@@ -62,11 +62,19 @@ shinyAppServer = function(input, output, session) {
       net <<- readRDS(matching_file)
       crashes_file_name = paste0("crashes-simulated-", tolower(input$city), ".Rds")
 
-      crashes <<- readRDS(crashes_file_name)
+      crashes_exist = FALSE
+      if (file.exists (crashes_file_name)) {
+        crashes <<- readRDS(crashes_file_name)
+        crashes_exist <- TRUE
+      }
       net$layer = net$flow
       if(input$safety) {
-        plot_map(net, input$layer, update_view = TRUE) %>%
-          plot_crashes(crashes = crashes)
+        if (crashes_exist) {
+          plot_map(net, input$layer, update_view = TRUE) %>%
+            plot_crashes(crashes = crashes)
+        } else {
+          plot_map(net, input$layer, update_view = TRUE)
+        }
       } else {
         plot_map(net, input$layer, update_view = TRUE) %>%
           mapdeck::clear_scatterplot()
