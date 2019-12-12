@@ -139,7 +139,7 @@ shinyAppServer = function(input, output, session) {
     )
 
   x = reactive({
-    g = plot_chart(city = input$city_sc)
+    g = plot_chart(city = input$city)
     return(g)
   })
   output$plot = renderPlot({
