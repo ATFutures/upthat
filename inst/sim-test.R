@@ -163,6 +163,36 @@ l_large_m9 = l %>% filter(all_m9 > 50)
 tm_shape(l_large_m9) +
   tm_lines(lwd = c("all", "all_m9"))
 
+# try to make it origin-constrained model
+l_grouped_by_origin = l_large_m9 %>%
+  group_by(o) %>%
+  summarise(all_m = sum(all_m9), all = sum(all)) %>%
+  mutate(reality_model_ratio = all / all_m)
+
+summary(l_grouped_by_origin$reality_model_ratio)
+
+l_model = l_large_m9 %>%
+  group_by(o) %>%
+  mutate(all_m = all_m9 * (sum(all) / sum(all_m9))) %>%
+  ungroup()
+
+cor(l_model$all_m9, l_model$all_m)
+cor(l_model$all, l_model$all_m)^2 # 51%
+cor(l_model$all, l_model$all_m9)^2
+sum(l_model$all_m)
+sum(l_model$all) # the same
+sum(l_model$all_m9) # 2 times bigger
+
+tm_shape(l_model) +
+  tm_lines(lwd = c("all", "all_m9", "all_m"))
+
+
+
+
+plot(l_grouped_by_origin$all, l_grouped_by_origin$all_m) # to make that 100% fit...
+
+
+
 # generate zones
 z = bristol_midpoint %>%
   st_transform(stplanr::geo_select_aeq(.)) %>%
