@@ -8,6 +8,179 @@ devtools::install_github("itsleeds/pct")
 library(tidyverse)
 library(gravity)
 library(brms)
+library(tmap)
+
+city_name = "Bristol"
+
+# test data from bristol --------------------------------------------------
+
+z = spDataLarge::bristol_zones
+zc = st_centroid(z) # centroids
+od_region = spDataLarge::bristol_od %>%
+  filter(o != d)
+l = stplanr::od2line(od_region, z)
+
+plot(l$geometry, lwd = l$all / mean(l$all) / 5)
+
+nrow(l) # just under 3k
+l$distance = as.numeric(sf::st_length(l)) / 1000
+
+summary(l$distance)
+plot(l$all, l$distance)
+plot(l$all, log(l$distance))
+cor(l$all, l$distance)
+cor(l$all, l$distance)^2
+
+# modelling total flow ----------------------------------------------------
+
+# unconstrained gravity model
+m2 = lm(all ~ log(distance), data = l)
+pred_lm1 = predict(m2, l)
+plot(l$distance, pred_lm1)
+plot(l$distance, m2$residuals)
+# Huge variability early on - must be other important predictors...
+cor(m2$fitted.values, l$all)^2 # ~ 5% explained
+
+# calculate proximity to city centre
+# cities = rnaturalearth::ne_download("large", type = "populated_places", returnclass = "sf")
+bristol_midpoint = cities %>% filter(NAME == "Bristol") %>%
+  filter(POP_MAX == max(POP_MAX))
+
+if(city_name == "Bristol") {
+  centrepoint_new = tmaptools::geocode_OSM(q = "Bristol", as.sf = TRUE)
+}
+mapview::mapview(centrepoint_new)
+bristol_midpoint$geometry = centrepoint_new$geometry
+
+st_crs(bristol_midpoint) = st_crs(z)
+# mapview::mapview(bristol_midpoint)
+z$distance_to_centre = as.numeric(sf::st_distance(zc, bristol_midpoint)[, 1])
+plot(z["distance_to_centre"])
+l = inner_join(l, z %>% select(d = geo_code, distance_to_centre) %>% st_drop_geometry())
+l = inner_join(l, z %>% select(o = geo_code, distance_to_centre_o = distance_to_centre) %>% st_drop_geometry())
+summary(l$distance_to_centre)
+plot(l[c("distance_to_centre", "distance_to_centre_o")])
+m3 = lm(all ~ log(distance) + distance_to_centre, data = l)
+pred = predict(m3, l)
+plot(l$distance, pred)
+plot(l$distance, m3$residuals)
+# Huge variability early on - must be other important predictors...
+cor(pred, l$all)^2 # ~ 5% explained still
+
+m4 = lm(all ~ log(distance) + log(distance_to_centre), data = l)
+pred = predict(m4, l)
+plot(l$distance, pred)
+plot(l$distance, m4$residuals)
+# Huge variability early on - must be other important predictors...
+cor(pred, l$all)^2 # ~ 13% explained still
+
+# m5 = lm(all ~ log(distance) + log(distance_to_centre) + log(distance) * log(distance_to_centre), data = l)
+m5 = lm(all ~ log(distance) + log(distance_to_centre) +
+          distance * distance_to_centre
+        , data = l)
+pred = predict(m5, l)
+plot(l$distance, pred)
+plot(l$distance, m5$residuals)
+# Huge variability early on - must be other important predictors...
+cor(pred, l$all)^2 # ~28% explained still
+
+# identify largest residuals
+l_error_more_than_500 = l %>% filter(m5$residuals > 500)
+mapview::mapview(l_error_more_than_500) +
+  mapview::mapview(z[bristol_midpoint, ])
+
+# with weights for largest flows
+m6 = lm(all ~ log(distance) + log(distance_to_centre) +
+          distance * distance_to_centre
+        , weights = all, data = l)
+pred = predict(m6, l)
+plot(l$distance, pred)
+plot(l$distance, m6$residuals)
+# Huge variability early on - must be other important predictors...
+cor(pred, l$all)^2 # ~28% explained still
+
+# with flows and non-linear interaction
+m7 = lm(all ~ log(distance) + log(distance_to_centre) +
+          distance * distance_to_centre +
+          log(distance) * log(distance_to_centre)
+        , data = l)
+pred = predict(m7, l)
+plot(l$distance, pred)
+plot(l$distance, m7$residuals)
+cor(pred, l$all)^2 # ~37%
+
+m8 = lm(all ~ log(distance) + log(distance_to_centre) +
+          distance * distance_to_centre +
+          log(distance) * log(distance_to_centre)
+        , weights = all, data = l)
+pred = predict(m8, l)
+plot(l$distance, pred)
+plot(l$distance, m8$residuals)
+cor(pred, l$all)^2 # 35%
+
+# with distance of origin to centre...
+m9 = lm(all ~ log(distance) + log(distance_to_centre) +
+          distance * distance_to_centre +
+          log(distance) * log(distance_to_centre) +
+          distance_to_centre * distance_to_centre_o
+        , weights = all, data = l)
+pred = predict(m9, l)
+plot(l$distance, pred)
+plot(l$distance, m9$residuals)
+# Huge variability early on - must be other important predictors...
+cor(pred, l$all)^2 # 39%
+
+m10 = lm(all ~ log(distance) + log(distance_to_centre) +
+          distance * distance_to_centre +
+          distance_to_centre * distance_to_centre_o
+        , weights = all, data = l)
+pred = predict(m10, l)
+plot(l$distance, pred)
+plot(l$distance, m10$residuals)
+cor(pred, l$all)^2 # 26%
+
+
+# with distance of origin to centre...
+m11 = lm(all ~ log(distance) + log(distance_to_centre) +
+           log(distance) * log(distance_to_centre) +
+           distance_to_centre * distance_to_centre_o
+         , weights = all, data = l)
+pred = predict(m11, l)
+cor(pred, l$all)^2 # 30%
+
+m12 = lm(all ~ log(distance) + log(distance_to_centre) +
+           log(distance) * log(distance_to_centre) +
+           distance_to_centre * distance_to_centre_o +
+           log(distance_to_centre) * log(distance_to_centre_o)
+         , weights = all, data = l)
+pred = predict(m12, l)
+cor(pred, l$all)^2 # 34%
+
+# go with m9
+l$all_m9 = predict(m9, l)
+summary(l$all_m9)
+l_large_m9 = l %>% filter(all_m9 > 50)
+tm_shape(l_large_m9) +
+  tm_lines(lwd = c("all", "all_m9"))
+
+# generate zones
+z = bristol_midpoint %>%
+  st_transform(stplanr::geo_select_aeq(.)) %>%
+  sz_zone(n_circles = 20)
+
+
+
+# radiation model
+
+# additional variables
+
+
+# bayesian approach
+m3 = brm(all ~ log(distance), data = l, cores = 4)
+plot(m3)
+pred3 = predict(m3, l)[, 1]
+plot(l$distance, pred3)
+cor(l$all, pred3)^2 # ~ 5% explained
 
 # get data for city -------------------------------------------------------
 
@@ -24,37 +197,6 @@ od_region = od %>%
 
 l = stplanr::od2line(od_region, c)
 nrow(l) # nearly 16k
-
-# test data from bristol --------------------------------------------------
-
-z = spDataLarge::bristol_zones
-od_region = spDataLarge::bristol_od %>%
-  filter(o != d)
-l = stplanr::od2line(od_region, z)
-nrow(l) # just under 3k
-l$distance = as.numeric(sf::st_length(l)) / 1000
-summary(l$distance)
-plot(l$all, l$distance)
-cor(l$all, l$distance)^2
-
-# modelling total flow ----------------------------------------------------
-
-# unconstrained gravity model
-m2 = lm(all ~ log(distance), data = l)
-plot(l$distance, m2$fitted.values)
-cor(m2$fitted.values, l$all)^2 # ~ 5% explained
-
-# radiation model
-
-# additional variables
-
-
-# bayesian approach
-m3 = brm(all ~ log(distance), data = l, cores = 4)
-plot(m3)
-pred3 = predict(m3, l)[, 1]
-plot(l$distance, pred3)
-cor(l$all, pred3)^2 # ~ 5% explained
 
 
 # failed attempts / tests ---------------------------------------------------
@@ -73,25 +215,25 @@ cor(l$all, pred3)^2 # ~ 5% explained
 # # m1 = brm(all ~ distance, data = l, cores = 4)
 # #
 # ld = sf::st_drop_geometry(l)
-ld$dummy = 1
-# with gravity package
-m2 = ddm("all", "distance",
-         code_origin = "o", code_destination = "d",
-         additional_regressors = "dummy",
-         data = ld)
-
-all_predicted = exp(m2$fitted.values)
-
-
-plot(l$distance, all_predicted)
-cor(l$all, all_predicted)^2 # 0.2
-l$dist_log_ddm = log(l$distance)
-l$dummy_ddm = 1
-all_predicted2 = exp(predict(m2, l)) # fails...
-plot(l$distance, all_predicted2) # can generate predictions...
-cor(l$all, all_predicted2)^2 # 0.04
-
-stplanr::od_radiation
+# ld$dummy = 1
+# # with gravity package
+# m2 = ddm("all", "distance",
+#          code_origin = "o", code_destination = "d",
+#          additional_regressors = "dummy",
+#          data = ld)
+#
+# all_predicted = exp(m2$fitted.values)
+#
+#
+# plot(l$distance, all_predicted)
+# cor(l$all, all_predicted)^2 # 0.2
+# l$dist_log_ddm = log(l$distance)
+# l$dummy_ddm = 1
+# all_predicted2 = exp(predict(m2, l)) # fails...
+# plot(l$distance, all_predicted2) # can generate predictions...
+# cor(l$all, all_predicted2)^2 # 0.04
+#
+# stplanr::od_radiation
 
 #
 #
