@@ -149,6 +149,8 @@ shinyAppServer = function(input, output, session) {
 }
 
 plot_map = function(net, leg_title, update_view = FALSE) {
+  threshold <- 0.01 # constant relative threshold - maybe expose later?
+  net = net [net$flow > (threshold * max (net$flow, na.rm = TRUE)), ]
   net$width = 100 * net$layer / max(net$layer, na.rm = TRUE)
   cols = grDevices::rgb(colourvalues::get_palette("inferno"), maxColorValue = 255)
   variables = seq(min(net$layer), max(net$layer), length.out = 5)
