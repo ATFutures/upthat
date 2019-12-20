@@ -54,7 +54,7 @@ The two main outputs of the tool, for a given scenario, are:
 Upthat is a fully open and reproducible web application.
 You can reproduce it on your computer on a local installation of R as follows:
 
-```{r repro, eval=FALSE}
+```{r repro, eval=FALSE, echo=TRUE}
 devtools::install_github("atfutures/upthat")
 library(upthat)
 upthat::runUpthat()
