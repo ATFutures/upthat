@@ -42,7 +42,7 @@ plot(l$distance, m2$residuals)
 cor(m2$fitted.values, l$all)^2 # ~ 5% explained
 
 # calculate proximity to city centre
-# cities = rnaturalearth::ne_download("large", type = "populated_places", returnclass = "sf")
+cities = rnaturalearth::ne_download("large", type = "populated_places", returnclass = "sf")
 bristol_midpoint = cities %>% filter(NAME == "Bristol") %>%
   filter(POP_MAX == max(POP_MAX))
 
@@ -54,29 +54,29 @@ bristol_midpoint$geometry = centrepoint_new$geometry
 
 st_crs(bristol_midpoint) = st_crs(z)
 # mapview::mapview(bristol_midpoint)
-z$distance_to_centre = as.numeric(sf::st_distance(zc, bristol_midpoint)[, 1])
+z$distance_to_centre = as.numeric(sf::st_distance(zc, bristol_midpoint)[, 1]) / 1000 # units of km more understandable
 plot(z["distance_to_centre"])
-l = inner_join(l, z %>% select(d = geo_code, distance_to_centre) %>% st_drop_geometry())
 l = inner_join(l, z %>% select(o = geo_code, distance_to_centre_o = distance_to_centre) %>% st_drop_geometry())
-summary(l$distance_to_centre)
-plot(l[c("distance_to_centre", "distance_to_centre_o")])
-m3 = lm(all ~ log(distance) + distance_to_centre, data = l)
+l = inner_join(l, z %>% select(d = geo_code, distance_to_centre_d = distance_to_centre) %>% st_drop_geometry())
+summary(l$distance_to_centre_o)
+plot(l[c("distance_to_centre_o", "distance_to_centre_d")])
+m3 = lm(all ~ log(distance) + distance_to_centre_d, data = l)
 pred = predict(m3, l)
 plot(l$distance, pred)
 plot(l$distance, m3$residuals)
 # Huge variability early on - must be other important predictors...
 cor(pred, l$all)^2 # ~ 5% explained still
 
-m4 = lm(all ~ log(distance) + log(distance_to_centre), data = l)
+m4 = lm(all ~ log(distance) + log(distance_to_centre_d), data = l)
 pred = predict(m4, l)
 plot(l$distance, pred)
 plot(l$distance, m4$residuals)
 # Huge variability early on - must be other important predictors...
 cor(pred, l$all)^2 # ~ 13% explained still
 
-# m5 = lm(all ~ log(distance) + log(distance_to_centre) + log(distance) * log(distance_to_centre), data = l)
-m5 = lm(all ~ log(distance) + log(distance_to_centre) +
-          distance * distance_to_centre
+# m5 = lm(all ~ log(distance) + log(distance_to_centre_d) + log(distance) * log(distance_to_centre_d), data = l)
+m5 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+          distance * distance_to_centre_d
         , data = l)
 pred = predict(m5, l)
 plot(l$distance, pred)
@@ -90,8 +90,8 @@ mapview::mapview(l_error_more_than_500) +
   mapview::mapview(z[bristol_midpoint, ])
 
 # with weights for largest flows
-m6 = lm(all ~ log(distance) + log(distance_to_centre) +
-          distance * distance_to_centre
+m6 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+          distance * distance_to_centre_d
         , weights = all, data = l)
 pred = predict(m6, l)
 plot(l$distance, pred)
@@ -100,18 +100,18 @@ plot(l$distance, m6$residuals)
 cor(pred, l$all)^2 # ~28% explained still
 
 # with flows and non-linear interaction
-m7 = lm(all ~ log(distance) + log(distance_to_centre) +
-          distance * distance_to_centre +
-          log(distance) * log(distance_to_centre)
+m7 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+          distance * distance_to_centre_d +
+          log(distance) * log(distance_to_centre_d)
         , data = l)
 pred = predict(m7, l)
 plot(l$distance, pred)
 plot(l$distance, m7$residuals)
 cor(pred, l$all)^2 # ~37%
 
-m8 = lm(all ~ log(distance) + log(distance_to_centre) +
-          distance * distance_to_centre +
-          log(distance) * log(distance_to_centre)
+m8 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+          distance * distance_to_centre_d +
+          log(distance) * log(distance_to_centre_d)
         , weights = all, data = l)
 pred = predict(m8, l)
 plot(l$distance, pred)
@@ -119,10 +119,10 @@ plot(l$distance, m8$residuals)
 cor(pred, l$all)^2 # 35%
 
 # with distance of origin to centre...
-m9 = lm(all ~ log(distance) + log(distance_to_centre) +
-          distance * distance_to_centre +
-          log(distance) * log(distance_to_centre) +
-          distance_to_centre * distance_to_centre_o
+m9 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+          distance * distance_to_centre_d +
+          log(distance) * log(distance_to_centre_d) +
+          distance_to_centre_d * distance_to_centre_o
         , weights = all, data = l)
 pred = predict(m9, l)
 plot(l$distance, pred)
@@ -130,9 +130,12 @@ plot(l$distance, m9$residuals)
 # Huge variability early on - must be other important predictors...
 cor(pred, l$all)^2 # 39%
 
-m10 = lm(all ~ log(distance) + log(distance_to_centre) +
-          distance * distance_to_centre +
-          distance_to_centre * distance_to_centre_o
+saveRDS(m9, "pred-m9-bristol-sim-test.Rds")
+piggyback::pb_upload("pred-m9-bristol-sim-test.Rds")
+
+m10 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+          distance * distance_to_centre_d +
+          distance_to_centre_d * distance_to_centre_o
         , weights = all, data = l)
 pred = predict(m10, l)
 plot(l$distance, pred)
@@ -141,17 +144,17 @@ cor(pred, l$all)^2 # 26%
 
 
 # with distance of origin to centre...
-m11 = lm(all ~ log(distance) + log(distance_to_centre) +
-           log(distance) * log(distance_to_centre) +
-           distance_to_centre * distance_to_centre_o
+m11 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+           log(distance) * log(distance_to_centre_d) +
+           distance_to_centre_d * distance_to_centre_o
          , weights = all, data = l)
 pred = predict(m11, l)
 cor(pred, l$all)^2 # 30%
 
-m12 = lm(all ~ log(distance) + log(distance_to_centre) +
-           log(distance) * log(distance_to_centre) +
-           distance_to_centre * distance_to_centre_o +
-           log(distance_to_centre) * log(distance_to_centre_o)
+m12 = lm(all ~ log(distance) + log(distance_to_centre_d) +
+           log(distance) * log(distance_to_centre_d) +
+           distance_to_centre_d * distance_to_centre_o +
+           log(distance_to_centre_d) * log(distance_to_centre_o)
          , weights = all, data = l)
 pred = predict(m12, l)
 cor(pred, l$all)^2 # 34%
