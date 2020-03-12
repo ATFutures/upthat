@@ -70,30 +70,6 @@ city_network = regional_network[city_zones, ]
 city_transport_network = city_network[!is.na(city_network$highway), ]
 mapview::mapview(city_transport_network) # yes, that's the navigable network!
 
-# get centroids sampled on network
-network = city_transport_network
-zone = city_zones[1, ]
-n = 1
-i = 1
-sample_in_zone = function(network, zone, n, i = 1) {
-  network_sample = sf::st_intersection(network, zone[i, ])
-  res = sf::st_sample(x = network_sample, size = n)
-  res[!sf::st_is_empty(res)]
-}
-sample_from_zone_1 = sample_in_zone(network = city_transport_network, zone = zone, n = 1)
-mapview::mapview(sample_from_zone_1)
-centroids_on_network_list = lapply(
-  1:nrow(city_zones),
-  sample_in_zone,
-  network = city_transport_network,
-  zone = city_zones,
-  n = 1
-)
-centroids_on_network = do.call(c, centroids_on_network_list)
-mapview::mapview(city_zones) +
-  mapview::mapview(centroids_on_network) +
-  mapview::mapview(city_zone_centroids)
-
 city_zone_centroids$distance_to_centre = as.numeric(
   sf::st_distance(city_zone_centroids, city_centre)[, 1]
   ) / 1000
@@ -103,14 +79,12 @@ plot(city_zones["distance_to_centre"])
 
 # generate od data --------------------------------------------------------
 
-# optional: set centroids on network (warning: distortion)
-city_zone_centroids$geometry = centroids_on_network
-
 od_region = od::points_to_od(city_zone_centroids, interzone_only = TRUE)
 nrow(od_region) # 1560
 od_region = od::od_oneway(od_region)
 nrow(od_region) # 780
 head(od_region)
+
 
 # switch origin and destination order so destination is closer to centre
 od_region = od_region[2:1]
@@ -118,6 +92,13 @@ names(od_region) = c("o", "d")
 # od_sf = od::od_to_sf(x = od_region, z = city_zone_centroids)
 # use sf version for correct crs
 od_sf = od::od_to_sf(x = od_region, z = city_zone_centroids, package = "sf")
+# with offsets
+od_sf = od::od_to_sf_network(
+  x = od_region,
+  z = city_zones,
+  package = "sf",
+  network = city_network
+)
 sf::st_crs(od_sf)
 plot(od_sf)
 
@@ -143,7 +124,7 @@ summary(od_sf$o <= od_sf$d) # point closes to centre is always 'destination'
 # piggyback::pb_list()
 # piggyback::pb_download_url("pred-m9-bristol-sim-test.Rds")
 # m = readRDS(url("https://github.com/ATFutures/upthat/releases/download/0.0.3.1/pred-m9-bristol-sim-test.Rds"))
-m = readRDS("pred-m9-bristol-sim-test.Rds")
+# m = readRDS("pred-m9-bristol-sim-test.Rds")
 od_sf$all_predicted = predict(m, od_sf)
 od_sf = od_sf[order(od_sf$all_predicted), ]
 plot(od_sf["all_predicted"], lwd = od_sf$all_predicted / mean(od_sf$all_predicted) / 3 )
@@ -170,7 +151,8 @@ x = ors_directions(list(od_sf_top_o[1, ], od_sf_top_d[1, ]), output = "sf")
 mapview::mapview(x)
 x_list = pbapply::pblapply(X = 1:nrow(od_sf_top), FUN = function(i) {
   message(i)
-  ors_directions(list(od_sf_top_o[i, ], od_sf_top_d[i, ]), output = "sf")
+  ors_directions(list(od_sf_top_o[i, ], od_sf_top_d[i, ]), output = "sf",
+                 profile = "cycling-regular")
 })
 od_routes = do.call(rbind, x_list)
 mapview::mapview(od_routes)
@@ -181,10 +163,16 @@ od_sf_top_routes = sf::st_sf(
   geometry = od_routes$geometry
 )
 mapview::mapview(od_sf_top_routes)
+od_sf_top_routes$length = sf::st_length(od_sf_top_routes) %>% as.numeric()
+od_sf_top_routes$go_dutch = pct::uptake_pct_godutch(
+  distance = od_sf_top_routes$length,
+  gradient = rep(0, nrow(od_sf_top_routes))
+) * od_sf_top_routes$all_predicted
 
-rnet = stplanr::overline(od_sf_top_routes, "all_predicted")
+rnet = stplanr::overline(od_sf_top_routes, "go_dutch")
 tm_shape(rnet) +
-  tm_lines(lwd = "all_predicted", scale = 9)
+  tm_lines(lwd = "go_dutch", scale = 9, col = "go_dutch",
+           palette = "RdYlBu")
 
 # tests with ors
 x = ors_directions(list(od_sf_top_o[1, ], od_sf_top_d[1, ]))
@@ -231,4 +219,26 @@ city_network_no_highway = city_transport_network[is.na(city_transport_network$hi
 mapview::mapview(city_network_no_highway) # not really navigable ways
 plot(city_zone_centroids, add = TRUE, col = "grey")
 
-
+# get centroids sampled on network
+network = city_transport_network
+zone = city_zones[1, ]
+n = 1
+i = 1
+sample_in_zone = function(network, zone, n, i = 1) {
+  network_sample = sf::st_intersection(network, zone[i, ])
+  res = sf::st_sample(x = network_sample, size = n)
+  res[!sf::st_is_empty(res)]
+}
+sample_from_zone_1 = sample_in_zone(network = city_transport_network, zone = zone, n = 1)
+mapview::mapview(sample_from_zone_1)
+centroids_on_network_list = lapply(
+  1:nrow(city_zones),
+  sample_in_zone,
+  network = city_transport_network,
+  zone = city_zones,
+  n = 1
+)
+centroids_on_network = do.call(c, centroids_on_network_list)
+mapview::mapview(city_zones) +
+  mapview::mapview(centroids_on_network) +
+  mapview::mapview(city_zone_centroids)
