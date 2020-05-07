@@ -92,8 +92,8 @@ read.csv(stringsAsFactors = FALSE, text = "Source,Pros,Cons") %>% knitr::kable()
 A problem with many datasets on mode split is that they ignore or oversimplify active transport [e.g. @aguilera_passenger_2014].
 Examples of this are the [OECD](https://stats.oecd.org/Index.aspx?DataSetCode=ITF_PASSENGER_TRANSPORT) passenger transport dataset and the European Union's Modal split of inland passenger transport, 2016 webpage, which omits walking and cycling:
 
-```{r, out.width="50%"}
-knitr::include_graphics("https://ec.europa.eu/eurostat/statistics-explained/images/a/a8/Modal_split_of_inland_passenger_transport%2C_2016_%28%25_share_in_passenger-kilometres%29.png")
+```{r, out.width="80%"}
+knitr::include_graphics("https://user-images.githubusercontent.com/1825120/81289335-288ee380-905e-11ea-8b05-11cfe6bfdf36.png")
 ```
 
 **This suggests the need for an open, international dataset on modal splits in major cities over time**.
